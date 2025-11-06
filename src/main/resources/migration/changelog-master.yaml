@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: schems/v1__init_schema.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: schems/v2__add_audit_fields.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: schems/v3__seed_test_data.yaml
+      relativeToChangelogFile: true
