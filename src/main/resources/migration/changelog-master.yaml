@@ -1,9 +1,9 @@
 databaseChangeLog:
   - include:
-      file: schems/v1__init_schema.yaml
+      file: schems/v1__init_enum.yaml
       relativeToChangelogFile: true
   - include:
-      file: schems/v2__add_audit_fields.yaml
+      file: schems/v2__init_schema.yaml
       relativeToChangelogFile: true
   - include:
       file: schems/v3__seed_test_data.yaml
