@@ -1,0 +1,6 @@
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ServiceType') THEN
+CREATE TYPE ServiceType AS ENUM ('PHOTOGRAPHER', 'LEAD', 'VIDEOGRAPHER', 'CHEF');
+END IF;
+END $$;

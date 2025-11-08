@@ -1,0 +1,6 @@
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'BookingStatus') THEN
+CREATE TYPE BookingStatus AS ENUM ('PENDING', 'ACCEPTED', 'REJECTED', 'COMPLETED');
+END IF;
+END $$;
