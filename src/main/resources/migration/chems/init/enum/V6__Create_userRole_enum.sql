@@ -1,6 +1,6 @@
 DO $$
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'USER_ROLE') THEN
-CREATE TYPE USER_ROLE AS ENUM ('USER', 'ADMIN');
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_role') THEN
+CREATE TYPE user_role AS ENUM ('USER', 'ADMIN');
 END IF;
 END $$;

@@ -16,6 +16,6 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     user_email EMAIL NOT NULL,
-    role USER_ROLE,
+    role user_role,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

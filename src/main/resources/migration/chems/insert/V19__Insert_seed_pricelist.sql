@@ -1,4 +1,4 @@
-INSERT INTO pricelist (contractor_id, service_type, quantity_of_hours, price, experience) VALUES
+INSERT INTO pricelist (contractor_id, type_of_service, quantity_of_hours, price, experience) VALUES
     (1, 'PHOTOGRAPHER', 2, 5000, '10 years in wedding photography'),
     (1, 'PHOTOGRAPHER', 4, 9000, 'Over 200 completed shoots'),
     (1, 'PHOTOGRAPHER', 8, 15000, 'Professional equipment'),
