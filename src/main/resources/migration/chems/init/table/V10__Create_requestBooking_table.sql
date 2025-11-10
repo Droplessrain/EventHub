@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS requestBooking (
     users_id BIGINT NOT NULL,
     contractor_id BIGINT NOT NULL,
     event_id BIGINT NOT NULL,
-    status bookingStatus NOT NULL,
+    status BOOKING_STATUS NOT NULL,
     reject_reason VARCHAR(40),
     title VARCHAR(40) NOT NULL,
     description VARCHAR(400) NOT NULL,

@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS contractorEvent (
     date_time TIMESTAMP NOT NULL,
     total_time SMALLINT NOT NULL,
     cost BIGINT NOT NULL,
-    service_type serviceType NOT NULL,
+    service_type SERVICE_TYPE NOT NULL,
     description VARCHAR(400) NOT NULL,
     CONSTRAINT fk_contractorEvent_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id),
     CONSTRAINT fk_contractorEvent_event FOREIGN KEY (event_id) REFERENCES event(id)

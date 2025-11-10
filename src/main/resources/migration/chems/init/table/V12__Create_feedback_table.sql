@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS feedback (
     users_id BIGINT NOT NULL,
     contractor_id BIGINT NOT NULL,
     rejectReason VARCHAR(40),
-    status feedbackStatus NOT NULL,
+    status FEEDBACK_STATUS NOT NULL,
     CONSTRAINT fk_feedback_users FOREIGN KEY (users_id) REFERENCES users(id),
     CONSTRAINT fk_feedback_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id)
     );
