@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS feedback (
     date_time TIMESTAMP NOT NULL,
     title VARCHAR(40) NOT NULL,
     description VARCHAR(400) NOT NULL,
-    users_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
     contractor_id BIGINT NOT NULL,
     rejectReason VARCHAR(40),
     status feedback_status NOT NULL,
-    CONSTRAINT fk_feedback_users FOREIGN KEY (users_id) REFERENCES users(id),
+    CONSTRAINT fk_feedback_users FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_feedback_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id)
     );
