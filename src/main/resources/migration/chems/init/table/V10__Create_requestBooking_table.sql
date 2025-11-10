@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS requestBooking (
     id BIGSERIAL PRIMARY KEY,
-    dateTime DATE NOT NULL,
+    dateTime TIMESTAMP NOT NULL,
     usersId BIGINT NOT NULL,
     contractorId BIGINT NOT NULL,
     eventId BIGINT NOT NULL,

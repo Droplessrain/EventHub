@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS complaint (
     id BIGSERIAL PRIMARY KEY,
-    dateTime DATE NOT NULL,
+    dateTime TIMESTAMP NOT NULL,
     title VARCHAR(40) NOT NULL,
     description VARCHAR(400) NOT NULL,
     usersId BIGINT NOT NULL,

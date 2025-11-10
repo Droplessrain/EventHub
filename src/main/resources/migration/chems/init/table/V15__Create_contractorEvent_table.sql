@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS contractorEvent (
     id BIGSERIAL PRIMARY KEY,
     contractorId BIGINT NOT NULL,
     eventId BIGINT NOT NULL,
-    dateTime DATE NOT NULL,
+    dateTime TIMESTAMP NOT NULL,
     totalTime SMALLINT NOT NULL,
     cost BIGINT NOT NULL,
     serviceType serviceType NOT NULL,
