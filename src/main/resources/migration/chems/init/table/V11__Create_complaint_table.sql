@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS complaint (
     id BIGSERIAL PRIMARY KEY,
-    dateTime TIMESTAMP NOT NULL,
+    date_time TIMESTAMP NOT NULL,
     title VARCHAR(40) NOT NULL,
     description VARCHAR(400) NOT NULL,
-    usersId BIGINT NOT NULL,
-    contractorId BIGINT NOT NULL,
+    users_id BIGINT NOT NULL,
+    contractor_id BIGINT NOT NULL,
     status complaintStatus NOT NULL,
     rejectReason VARCHAR(40),
-    CONSTRAINT fk_complaint_users FOREIGN KEY (usersId) REFERENCES users(id),
-    CONSTRAINT fk_complaint_contractor FOREIGN KEY (contractorId) REFERENCES contractor(id)
+    CONSTRAINT fk_complaint_users FOREIGN KEY (users_id) REFERENCES users(id),
+    CONSTRAINT fk_complaint_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id)
     );

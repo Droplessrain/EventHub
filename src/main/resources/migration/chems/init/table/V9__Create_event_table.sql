@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS event (
     id BIGSERIAL PRIMARY KEY,
-    usersId BIGINT NOT NULL,
+    users_id BIGINT NOT NULL,
     title VARCHAR(20) NOT NULL,
-    eventType eventType NOT NULL,
+    event_type eventType NOT NULL,
     date TIMESTAMP NOT NULL,
-    totalTime SMALLINT NOT NULL,
+    total_time SMALLINT NOT NULL,
     description VARCHAR(5000) NOT NULL,
-    CONSTRAINT fk_event_users FOREIGN KEY (usersId) REFERENCES users(id)
+    CONSTRAINT fk_event_users FOREIGN KEY (users_id) REFERENCES users(id)
     );

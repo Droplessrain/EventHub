@@ -1,14 +1,14 @@
 CREATE TABLE IF NOT EXISTS requestBooking (
     id BIGSERIAL PRIMARY KEY,
-    dateTime TIMESTAMP NOT NULL,
-    usersId BIGINT NOT NULL,
-    contractorId BIGINT NOT NULL,
-    eventId BIGINT NOT NULL,
+    date_time TIMESTAMP NOT NULL,
+    users_id BIGINT NOT NULL,
+    contractor_id BIGINT NOT NULL,
+    event_id BIGINT NOT NULL,
     status bookingStatus NOT NULL,
-    rejectReason VARCHAR(40),
+    reject_reason VARCHAR(40),
     title VARCHAR(40) NOT NULL,
     description VARCHAR(400) NOT NULL,
-    CONSTRAINT fk_requestBooking_users FOREIGN KEY (usersId) REFERENCES users(id),
-    CONSTRAINT fk_requestBooking_contractor FOREIGN KEY (contractorId) REFERENCES contractor(id),
-    CONSTRAINT fk_requestBooking_event FOREIGN KEY (eventId) REFERENCES event(id)
+    CONSTRAINT fk_requestBooking_users FOREIGN KEY (users_id) REFERENCES users(id),
+    CONSTRAINT fk_requestBooking_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id),
+    CONSTRAINT fk_requestBooking_event FOREIGN KEY (event_id) REFERENCES event(id)
 );
