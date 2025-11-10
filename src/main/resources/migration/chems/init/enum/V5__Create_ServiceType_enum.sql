@@ -1,6 +1,6 @@
 DO $$
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ServiceType') THEN
-CREATE TYPE ServiceType AS ENUM ('PHOTOGRAPHER', 'LEAD', 'VIDEOGRAPHER', 'CHEF');
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'serviceType') THEN
+CREATE TYPE serviceType AS ENUM ('PHOTOGRAPHER', 'LEAD', 'VIDEOGRAPHER', 'CHEF');
 END IF;
 END $$;
