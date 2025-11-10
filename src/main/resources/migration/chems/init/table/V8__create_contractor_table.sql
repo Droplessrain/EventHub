@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS contractor (
     birth_date DATE NOT NULL,
     user_id BIGINT NOT NULL,
     description TEXT NOT NULL,
-    region VARCHAR(50) NOT NULL,
     CONSTRAINT fk_contractor_users FOREIGN KEY (usersId) REFERENCES users(id)
     );
 

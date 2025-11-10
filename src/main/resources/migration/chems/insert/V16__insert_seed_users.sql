@@ -1,4 +1,4 @@
-INSERT INTO users (username, password, email, role) VALUES
+INSERT INTO users (username, password, email, user_role) VALUES
     ('admin', '$2a$10$adminhashedpassword', 'admin@example.com', 'ADMIN'),
     ('john_doe', '$2a$10$userhashedpassword1', 'john@example.com', 'USER'),
     ('jane_smith', '$2a$10$userhashedpassword2', 'jane@example.com', 'USER'),
