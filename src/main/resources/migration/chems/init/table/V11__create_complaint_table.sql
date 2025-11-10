@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS complaint (
     id BIGSERIAL PRIMARY KEY,
     date_time TIMESTAMP NOT NULL,
     title VARCHAR(40) NOT NULL,
-    description VARCHAR(400) NOT NULL,
+    description TEXT NOT NULL,
     user_id BIGINT NOT NULL,
     contractor_id BIGINT NOT NULL,
     status complaint_status NOT NULL,

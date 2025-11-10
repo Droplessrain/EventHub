@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS requestBooking (
     status booking_status NOT NULL,
     reject_reason VARCHAR(200),
     title VARCHAR(80) NOT NULL,
-    description VARCHAR(400) NOT NULL,
+    description TEXT NOT NULL,
     CONSTRAINT fk_requestBooking_users FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_requestBooking_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id),
     CONSTRAINT fk_requestBooking_event FOREIGN KEY (event_id) REFERENCES event(id)
