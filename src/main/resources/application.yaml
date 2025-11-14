@@ -1,0 +1,16 @@
+spring:
+    application:
+        name: EventHub
+    datasource:
+        url: jdbc:postgresql://localhost:5432/eventhub
+        username: postgres
+        password: admin
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
+    liquibase:
+        change-log: classpath:changelog-master.yaml
+        enabled: true
