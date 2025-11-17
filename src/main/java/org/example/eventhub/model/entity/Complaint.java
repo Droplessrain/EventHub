@@ -1,0 +1,66 @@
+package org.example.eventhub.model.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.example.eventhub.model.enums.ComplaintStatus;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "complaint")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Complaint {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "complaint_date_time", nullable = false)
+    private LocalDateTime complaintDateTime;
+
+    @Column(name = "title", length = 80, nullable = false)
+    @Size(max = 80)
+    private String title;
+
+    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
+    private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "contractor_id", nullable = false)
+    private Contractor contractor;
+
+    @Column(name = "complaint_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ComplaintStatus complaintStatus;
+
+    @Column(name = "reject_reason", length = 400)
+    @Size(max = 400)
+    private String rejectReason;
+
+    @CreatedDate
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime created_date;
+
+    @LastModifiedDate
+    @Column(name = "updated_date")
+    private LocalDateTime updated_date;
+}
