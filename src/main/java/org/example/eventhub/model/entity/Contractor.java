@@ -15,6 +15,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,11 +50,11 @@ public class Contractor {
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @CreationTimestamp
+    @CreatedDate
     @Column(name = "created_date", updatable = false)
     private LocalDateTime created_date;
 
-    @UpdateTimestamp
+    @LastModifiedDate
     @Column(name = "updated_date")
     private LocalDateTime updated_date;
 }

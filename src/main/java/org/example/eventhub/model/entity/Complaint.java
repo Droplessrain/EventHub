@@ -15,8 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.eventhub.model.enums.ComplaintStatus;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -56,11 +56,11 @@ public class Complaint {
     @Size(max = 400)
     private String rejectReason;
 
-    @CreationTimestamp
+    @CreatedDate
     @Column(name = "created_date", updatable = false)
     private LocalDateTime created_date;
 
-    @UpdateTimestamp
+    @LastModifiedDate
     @Column(name = "updated_date")
     private LocalDateTime updated_date;
 }
