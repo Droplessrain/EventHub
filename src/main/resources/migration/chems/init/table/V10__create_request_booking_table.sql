@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS requestBooking (
+CREATE TABLE IF NOT EXISTS request_booking (
     id BIGSERIAL PRIMARY KEY,
     request_date_time TIMESTAMP NOT NULL,
     user_id BIGINT NOT NULL,

@@ -3,6 +3,7 @@ services:
   postgres:
     image: postgres:15
     container_name: eventhub-postgres
+    restart: always
     environment:
       POSTGRES_DB: eventhub
       POSTGRES_USER: postgres
@@ -11,7 +12,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./chems:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
   postgres_data:
