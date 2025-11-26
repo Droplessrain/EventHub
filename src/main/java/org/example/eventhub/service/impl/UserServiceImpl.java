@@ -17,6 +17,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.example.eventhub.exception.ErrorConstants.USER_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -27,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDTO findById(Long id) {
         return userMapper.toDTO(userRepository.findById(id)
-                .orElseThrow(()-> new UserNotFoundException("Not found user with id: " + id)));
+                .orElseThrow(()-> new UserNotFoundException(String.format(USER_NOT_FOUND, id))));
     }
 
     @Override
@@ -38,9 +40,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public UserResponseDTO updateUser(Long id, UserUpdateDTO userUpdateDTO) {
-        User userFirst = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("user for update not found"));
+        User userFirst = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_NOT_FOUND, id)));
         return userMapper.toDTO(userRepository.save(userFirst));
     }
 
@@ -53,10 +54,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public boolean isCurrentUserCardOwner(Long userId) {
-        return false;
     }
 }

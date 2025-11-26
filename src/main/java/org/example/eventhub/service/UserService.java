@@ -62,13 +62,4 @@ public interface UserService {
      * @throws IllegalArgumentException if id is null or user does not exist
      */
     void deleteById(Long id);
-
-    /**
-     * Checks if the current authenticated user is the owner of the specified user ID.
-     *
-     * @param userId the user ID to check ownership for (must not be null)
-     * @return true if current user is the owner of the specified user ID, false otherwise
-     * @throws IllegalArgumentException if userId is null
-     */
-    boolean isCurrentUserCardOwner(Long userId);
 }
