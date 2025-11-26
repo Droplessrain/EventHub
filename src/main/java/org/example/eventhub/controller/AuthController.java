@@ -21,13 +21,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginRequest request) {
         JwtResponse jwtResponse = authService.login(request);
         return ResponseEntity.ok(jwtResponse);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<JwtResponse> signUp(@RequestBody UserCreateDTO userCreateDTO){
+    public ResponseEntity<JwtResponse> signUp(@Valid @RequestBody UserCreateDTO userCreateDTO){
         return new ResponseEntity<>(
                 authService.signUp(userCreateDTO), HttpStatus.CREATED);
     }
