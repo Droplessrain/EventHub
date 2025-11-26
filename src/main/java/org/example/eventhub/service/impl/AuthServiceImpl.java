@@ -6,6 +6,7 @@ import org.example.eventhub.dto.security.LoginRequest;
 import org.example.eventhub.dto.security.RefreshTokenRequest;
 import org.example.eventhub.dto.user.UserCreateDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
+import org.example.eventhub.exception.InvalidRefreshToken;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
 import org.example.eventhub.security.JwtUtils;
@@ -16,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import static org.example.eventhub.exception.ErrorConstants.INVALID_REFRESH_TOKEN;
 
 
 @Service
@@ -57,7 +60,6 @@ public class AuthServiceImpl implements AuthService {
             String accessToken = jwtUtils.generateAccessToken(user);
             return new JwtResponse(accessToken, refreshTokenRequest.toString());
         }
-
-        return null;
+        else throw new InvalidRefreshToken(INVALID_REFRESH_TOKEN);
     }
 }
