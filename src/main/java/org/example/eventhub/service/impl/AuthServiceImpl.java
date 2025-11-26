@@ -1,6 +1,5 @@
 package org.example.eventhub.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.eventhub.dto.security.JwtResponse;
 import org.example.eventhub.dto.security.LoginRequest;
@@ -9,7 +8,6 @@ import org.example.eventhub.dto.user.UserCreateDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
-import org.example.eventhub.repository.UserRepository;
 import org.example.eventhub.security.JwtUtils;
 import org.example.eventhub.service.AuthService;
 import org.example.eventhub.service.UserService;
@@ -19,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -54,11 +51,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtResponse refresh(RefreshTokenRequest refreshTokenRequest){
-        String tocken = refreshTokenRequest.toString();
-        if(jwtUtils.isRefreshToken(tocken)){
-            User user = userMapper.toEntity(userService.findById(jwtUtils.generateUserIdFromToken(tocken)));
-            String accessTocken = jwtUtils.generateAccessToken(user);
-            return new JwtResponse(accessTocken, refreshTokenRequest.toString());
+        String token = refreshTokenRequest.toString();
+        if(jwtUtils.isRefreshToken(token)){
+            User user = userMapper.toEntity(userService.findById(jwtUtils.generateUserIdFromToken(token)));
+            String accessToken = jwtUtils.generateAccessToken(user);
+            return new JwtResponse(accessToken, refreshTokenRequest.toString());
         }
 
         return null;
