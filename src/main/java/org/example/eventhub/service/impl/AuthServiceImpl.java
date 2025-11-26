@@ -10,12 +10,10 @@ import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
 import org.example.eventhub.repository.UserRepository;
-import org.example.eventhub.security.JwtAuthFilter;
 import org.example.eventhub.security.JwtUtils;
 import org.example.eventhub.service.AuthService;
 import org.example.eventhub.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +26,6 @@ import java.util.Optional;
 public class AuthServiceImpl implements AuthService {
     
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
     private final UserService userService;
     private final UserMapper userMapper;

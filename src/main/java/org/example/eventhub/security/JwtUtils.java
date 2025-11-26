@@ -29,11 +29,7 @@ public class JwtUtils {
 
     @Value("${jwt.refresh-token-expiration}")
     private long refreshTokenExpiration;
-
-
-    // ======================
-    // generation ACCESS tocken
-    // ======================
+    
 
     public String generateAccessToken(User user) {
         return Jwts.builder()
@@ -54,10 +50,6 @@ public class JwtUtils {
     public String generateAccessToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return buildToken(extraClaims, userDetails.getUsername(), accessTokenExpiration);
     }
-
-    // ======================
-    // generation REFRESH tocken
-    // ======================
 
     public String generateRefreshToken(UserDetails userDetails) {
         return buildToken(new HashMap<>(), userDetails.getUsername(), refreshTokenExpiration);
