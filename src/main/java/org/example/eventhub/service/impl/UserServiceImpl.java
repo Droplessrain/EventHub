@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO updateUser(Long id, UserUpdateDTO userUpdateDTO) {
-        User userFirst = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
-        return userMapper.toDTO(userRepository.save(userFirst));
+        User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
+        return userMapper.toDTO(userRepository.save(user));
     }
 
     @Override
