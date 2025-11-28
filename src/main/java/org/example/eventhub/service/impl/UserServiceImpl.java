@@ -15,9 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import static org.example.eventhub.exception.ErrorConstants.USER_NOT_FOUND;
+import static org.example.eventhub.exception.ErrorConstants.USER_BY_ID_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDTO findById(Long id) {
         return userMapper.toDTO(userRepository.findById(id)
-                .orElseThrow(()-> new UserNotFoundException(String.format(USER_NOT_FOUND, id))));
+                .orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id))));
     }
 
     @Override
@@ -41,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO updateUser(Long id, UserUpdateDTO userUpdateDTO) {
-        User userFirst = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_NOT_FOUND, id)));
+        User userFirst = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
         return userMapper.toDTO(userRepository.save(userFirst));
     }
 

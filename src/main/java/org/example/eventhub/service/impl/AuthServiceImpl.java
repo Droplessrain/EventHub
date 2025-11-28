@@ -6,7 +6,7 @@ import org.example.eventhub.dto.security.LoginRequest;
 import org.example.eventhub.dto.security.RefreshTokenRequest;
 import org.example.eventhub.dto.user.UserCreateDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.exception.InvalidRefreshToken;
+import org.example.eventhub.exception.InvalidRefreshTokenException;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
 import org.example.eventhub.security.JwtUtils;
@@ -60,6 +60,6 @@ public class AuthServiceImpl implements AuthService {
             String accessToken = jwtUtils.generateAccessToken(user);
             return new JwtResponse(accessToken, refreshTokenRequest.toString());
         }
-        else throw new InvalidRefreshToken(INVALID_REFRESH_TOKEN);
+        else throw new InvalidRefreshTokenException(INVALID_REFRESH_TOKEN);
     }
 }
