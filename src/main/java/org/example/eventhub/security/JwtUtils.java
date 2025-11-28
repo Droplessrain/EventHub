@@ -11,7 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import javax.xml.datatype.Duration;
 import java.security.Key;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +40,8 @@ public class JwtUtils {
                 .subject(user.getId().toString())
                 .claim("email",user.getEmail())
                 .claim("user_role", user.getRole())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()+1000*60*10))
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(Instant.now().plus(15, ChronoUnit.MINUTES)))
                 .signWith(getSigningKey())
                 .compact();
 
@@ -59,8 +63,8 @@ public class JwtUtils {
         return Jwts.builder()
                 .claims(extraClaims)
                 .subject(subject)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expirationMs))
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(Instant.now().plus(expirationMs, ChronoUnit.MICROS)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
