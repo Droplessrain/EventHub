@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS contractorEvent (
+CREATE TABLE IF NOT EXISTS contractor_event (
     id BIGSERIAL PRIMARY KEY,
     contractor_id BIGINT NOT NULL,
     event_id BIGINT NOT NULL,

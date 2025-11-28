@@ -1,3 +1,7 @@
 databaseChangeLog:
   - includeAll:
-      path: migration/chems/
+      path: migration/chems/init/enum/
+  - includeAll:
+      path: migration/chems/init/table/
+  - includeAll:
+      path: migration/chems/insert/

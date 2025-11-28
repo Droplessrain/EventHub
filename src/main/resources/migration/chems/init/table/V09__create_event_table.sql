@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS event (
     event_date TIMESTAMP NOT NULL,
     total_time SMALLINT NOT NULL CHECK (total_time > 0),
     description TEXT NOT NULL,
-    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_event_users FOREIGN KEY (user_id) REFERENCES users(id)
     );

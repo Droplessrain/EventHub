@@ -22,7 +22,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "price_list")
+@Table(name = "pricelist")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
