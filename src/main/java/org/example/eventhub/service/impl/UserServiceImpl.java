@@ -5,6 +5,8 @@ import org.example.eventhub.dto.user.UserCreateDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.dto.user.UserUpdateDTO;
 import org.example.eventhub.exception.UserNotFoundException;
+import org.example.eventhub.exception.UserWithThisEmailAlreadyExist;
+import org.example.eventhub.exception.UserWithThisUsernameAlreadyExist;
 import org.example.eventhub.filterEntity.SearchUsersFilter;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
@@ -17,6 +19,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import static org.example.eventhub.exception.ErrorConstants.USER_BY_ID_NOT_FOUND;
+import static org.example.eventhub.exception.ErrorConstants.USER_WITH_THIS_EMAIL_ALREADY_EXIST;
+import static org.example.eventhub.exception.ErrorConstants.USER_WITH_THIS_USERNAME_ALREADY_EXIST;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +50,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO createUser(UserCreateDTO userCreateDTO) {
+        if(userRepository.findByUsername(userCreateDTO.username()).isPresent()) {
+            throw new UserWithThisUsernameAlreadyExist(USER_WITH_THIS_USERNAME_ALREADY_EXIST);
+        }
+        if(userRepository.findByEmail(userCreateDTO.email()).isPresent()) {
+            throw new UserWithThisEmailAlreadyExist(USER_WITH_THIS_EMAIL_ALREADY_EXIST);
+        }
         User createdUser = userMapper.toEntity(userCreateDTO);
         return userMapper.toDTO(userRepository.save(createdUser));
     }

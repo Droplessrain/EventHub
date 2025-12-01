@@ -9,6 +9,8 @@ import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.exception.InvalidPasswordForUsernameException;
 import org.example.eventhub.exception.InvalidRefreshTokenException;
 import org.example.eventhub.exception.InvalidUsernameInLoginRequestException;
+import org.example.eventhub.exception.UserWithThisEmailAlreadyExist;
+import org.example.eventhub.exception.UserWithThisUsernameAlreadyExist;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
 import org.example.eventhub.repository.UserRepository;
@@ -28,6 +30,8 @@ import java.util.Optional;
 import static org.example.eventhub.exception.ErrorConstants.INVALID_PASSWORD_FOR_USERNAME_IN_LOGIN_TOKEN;
 import static org.example.eventhub.exception.ErrorConstants.INVALID_REFRESH_TOKEN;
 import static org.example.eventhub.exception.ErrorConstants.INVALID_USERNAME_IN_LOGIN_TOKEN;
+import static org.example.eventhub.exception.ErrorConstants.USER_WITH_THIS_EMAIL_ALREADY_EXIST;
+import static org.example.eventhub.exception.ErrorConstants.USER_WITH_THIS_USERNAME_ALREADY_EXIST;
 
 
 @Service
