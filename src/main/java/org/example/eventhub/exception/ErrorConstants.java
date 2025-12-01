@@ -5,4 +5,6 @@ public final class ErrorConstants {
 
     public static final String USER_BY_ID_NOT_FOUND = "User not found with ID: %s";
     public static final String INVALID_REFRESH_TOKEN = "Invalid refresh token";
+    public static final String INVALID_USERNAME_IN_LOGIN_TOKEN= "Invalid username in login token";
+    public static final String INVALID_PASSWORD_FOR_USERNAME_IN_LOGIN_TOKEN = "Invalid password for username in login token";
 }
