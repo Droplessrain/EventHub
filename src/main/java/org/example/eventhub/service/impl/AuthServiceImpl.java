@@ -9,8 +9,6 @@ import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.exception.InvalidPasswordForUsernameException;
 import org.example.eventhub.exception.InvalidRefreshTokenException;
 import org.example.eventhub.exception.InvalidUsernameInLoginRequestException;
-import org.example.eventhub.exception.UserWithThisEmailAlreadyExist;
-import org.example.eventhub.exception.UserWithThisUsernameAlreadyExist;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
 import org.example.eventhub.repository.UserRepository;
@@ -21,7 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +28,7 @@ import java.util.Optional;
 import static org.example.eventhub.exception.ErrorConstants.INVALID_PASSWORD_FOR_USERNAME_IN_LOGIN_TOKEN;
 import static org.example.eventhub.exception.ErrorConstants.INVALID_REFRESH_TOKEN;
 import static org.example.eventhub.exception.ErrorConstants.INVALID_USERNAME_IN_LOGIN_TOKEN;
-import static org.example.eventhub.exception.ErrorConstants.USER_WITH_THIS_EMAIL_ALREADY_EXIST;
-import static org.example.eventhub.exception.ErrorConstants.USER_WITH_THIS_USERNAME_ALREADY_EXIST;
+
 
 
 @Service
@@ -43,14 +40,14 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public JwtResponse login(LoginRequest request) {
 
         Optional<User> user = userRepository.findByUsername(request.username());
         if (user.isPresent()) {
-            PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-            if(user.get().getPassword().equals(encoder.encode(request.password()))) {
+            if(passwordEncoder.matches(request.password(), user.get().getPassword())) {
 
                 Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -83,11 +80,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtResponse refresh(RefreshTokenRequest refreshTokenRequest){
-        String token = refreshTokenRequest.toString();
+        String token = refreshTokenRequest.refreshToken();
         if(jwtUtils.isRefreshToken(token)){
             User user = userMapper.toEntity(userService.findById(jwtUtils.generateUserIdFromToken(token)));
             String accessToken = jwtUtils.generateAccessToken(user);
-            return new JwtResponse(accessToken, refreshTokenRequest.toString());
+            return new JwtResponse(accessToken, refreshTokenRequest.refreshToken());
         }
         else throw new InvalidRefreshTokenException(INVALID_REFRESH_TOKEN);
     }
