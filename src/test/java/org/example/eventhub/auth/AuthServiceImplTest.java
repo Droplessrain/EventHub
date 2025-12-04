@@ -94,12 +94,12 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void login_WithValidCredentials_ReturnsJwtResponse() {
+    void login_with_valid_credentials_returns_JwtResponse() {
         when(userRepository.findByUsername("testuser"))
                 .thenReturn(Optional.of(testUser));
 
         String rawPassword = "password123";
-        String encodedPassword = testUser.getPassword(); // Используйте существующий хэш
+        String encodedPassword = testUser.getPassword();
 
         when(passwordEncoder.matches(eq(rawPassword), eq(encodedPassword)))
                 .thenReturn(true);
@@ -119,6 +119,7 @@ class AuthServiceImplTest {
         assertThat(result).isNotNull();
         assertThat(result.accessToken()).isEqualTo("access-token-123");
         assertThat(result.refreshToken()).isEqualTo("refresh-token-456");
+        assertThat(jwtUtils.isRefreshToken(result.refreshToken())).isTrue(); //check expiration and issuedAt in isRefreshToken
 
         verify(userRepository).findByUsername("testuser");
         verify(passwordEncoder).matches(eq(rawPassword), eq(encodedPassword));
@@ -128,7 +129,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void signUp_WithValidData_ReturnsJwtResponse() {
+    void signUp_withValidData_returnsJwtResponse() {
         when(userService.createUser(validUserCreateDTO)).thenReturn(userResponseDTO);
         when(userMapper.toLoginRequest(userResponseDTO))
                 .thenReturn(new LoginRequest("testuser", "password123"));
@@ -158,7 +159,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void refresh_WithValidToken_ReturnsNewJwtResponse() {
+    void refresh_withValidToken_returnsNewJwtResponse() {
         String refreshToken = "valid-refresh-token";
         RefreshTokenRequest request = new RefreshTokenRequest(refreshToken);
 
