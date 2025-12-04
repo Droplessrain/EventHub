@@ -1,3 +1,8 @@
+jwt:
+    secret: k3Jf8mL2xQz9vN1aB7cR4eT6yH0oP9iU8wS5nM3lK2jA
+    access-token-expiration: 54000
+    refresh-token-expiration: 86400000
+    
 spring:
     application:
         name: EventHub
@@ -14,3 +19,5 @@ spring:
     liquibase:
         change-log: classpath:changelog-master.yaml
         enabled: true
+        parameters:
+            liquibase.command.update.force: true
