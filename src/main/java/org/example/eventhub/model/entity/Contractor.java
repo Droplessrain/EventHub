@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -55,4 +56,8 @@ public class Contractor {
     @LastModifiedDate
     @Column(name = "updated_date")
     private LocalDateTime updated_date;
+
+    @Version
+    @Column(nullable = false)
+    private int version;
 }

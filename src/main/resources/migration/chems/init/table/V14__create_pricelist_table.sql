@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS pricelist (
     experience TEXT NOT NULL,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    version INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT fk_pricelist_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id)
     );

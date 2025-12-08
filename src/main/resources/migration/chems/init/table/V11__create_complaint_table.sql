@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS complaint (
     reject_reason VARCHAR(400),
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    version INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT fk_complaint_users FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_complaint_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id)
     );

@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS feedback (
     feedback_status feedback_status NOT NULL,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    version INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT fk_feedback_users FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_feedback_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id)
     );

@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -63,4 +65,8 @@ public class Complaint {
     @LastModifiedDate
     @Column(name = "updated_date")
     private LocalDateTime updated_date;
+
+    @Version
+    @Column(name = "version", nullable = false)
+    private int version;
 }
