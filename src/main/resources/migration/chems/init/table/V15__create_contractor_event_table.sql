@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS contractor_event (
     description TEXT NOT NULL,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    version INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT fk_contractorEvent_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id),
     CONSTRAINT fk_contractorEvent_event FOREIGN KEY (event_id) REFERENCES event(id)
     );

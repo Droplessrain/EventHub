@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS request_booking (
     description TEXT NOT NULL,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    version INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT fk_requestBooking_users FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_requestBooking_contractor FOREIGN KEY (contractor_id) REFERENCES contractor(id),
     CONSTRAINT fk_requestBooking_event FOREIGN KEY (event_id) REFERENCES event(id)

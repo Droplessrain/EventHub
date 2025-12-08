@@ -20,15 +20,18 @@ public interface UserMapper {
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
+    @Mapping(target = "version", ignore = true)
     User toEntity(UserResponseDTO userResponseDTO);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
+    @Mapping(target = "version", ignore = true)
     User toEntity(UserCreateDTO userCreateDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
+    @Mapping(target = "version", ignore = true)
     List<User> toEntity(List<UserResponseDTO> userResponseDTO);
 
     LoginRequest toLoginRequest(UserResponseDTO userResponseDTO);

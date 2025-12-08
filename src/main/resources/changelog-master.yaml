@@ -5,3 +5,7 @@ databaseChangeLog:
       path: migration/chems/init/table/
   - includeAll:
       path: migration/chems/insert/
+  - includeAll:
+      path: migration/chems/function/
+  - includeAll:
+      path: migration/chems/trigger/

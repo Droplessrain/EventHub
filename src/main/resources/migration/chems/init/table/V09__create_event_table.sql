@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS event (
     description TEXT NOT NULL,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    version INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT fk_event_users FOREIGN KEY (user_id) REFERENCES users(id)
     );

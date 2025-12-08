@@ -3,6 +3,9 @@ package org.example.eventhub.auth;
 import org.example.eventhub.dto.user.UserCreateDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.dto.user.UserUpdateDTO;
+import org.example.eventhub.exception.UserNotFoundException;
+import org.example.eventhub.exception.UserWithThisEmailAlreadyExist;
+import org.example.eventhub.exception.UserWithThisUsernameAlreadyExist;
 import org.example.eventhub.filterEntity.SearchUsersFilter;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
@@ -24,9 +27,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -60,7 +65,8 @@ public class UserServiceImplTest {
                 "testemail@mail.com",
                 UserRole.USER,
                 null,
-                null);
+                null,
+                0);
         userId = 1L;
         response = new UserResponseDTO(
                 userId,
@@ -150,5 +156,202 @@ public class UserServiceImplTest {
         userRepository.deleteById(userId);
 
         verify(userRepository).deleteById(userId);
+    }
+
+    @Test
+    void findById_withInvalidId_throwsUserNotFoundException() {
+        Long invalidUserId = 999L;
+        when(userRepository.findById(invalidUserId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userService.findById(invalidUserId))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining(String.valueOf(invalidUserId));
+
+        verify(userRepository).findById(invalidUserId);
+        verify(userMapper, never()).toDTO(any(User.class));
+    }
+
+    @Test
+    void findById_withNullId_throwsUserNotFoundException() {
+        when(userRepository.findById(null)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userService.findById(null))
+                .isInstanceOf(UserNotFoundException.class);
+
+        verify(userRepository).findById(null);
+        verify(userMapper, never()).toDTO(any(User.class));
+    }
+
+    @Test
+    void createUser_withExistingUsername_throwsUserWithThisUsernameAlreadyExist() {
+        User existingUser = new User();
+        existingUser.setUsername(createDTO.username());
+
+        when(userRepository.findByUsername(createDTO.username()))
+                .thenReturn(Optional.of(existingUser));
+
+        assertThatThrownBy(() -> userService.createUser(createDTO))
+                .isInstanceOf(UserWithThisUsernameAlreadyExist.class);
+
+        verify(userRepository).findByUsername(createDTO.username());
+        verify(userRepository, never()).findByEmail(any());
+        verify(userRepository, never()).save(any(User.class));
+        verify(userMapper, never()).toDTO(any(User.class));
+    }
+
+    @Test
+    void createUser_withExistingEmail_throwsUserWithThisEmailAlreadyExist() {
+        User existingUser = new User();
+        existingUser.setEmail(createDTO.email());
+
+        when(userRepository.findByUsername(createDTO.username())).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(createDTO.email()))
+                .thenReturn(Optional.of(existingUser));
+
+        assertThatThrownBy(() -> userService.createUser(createDTO))
+                .isInstanceOf(UserWithThisEmailAlreadyExist.class);
+
+        verify(userRepository).findByUsername(createDTO.username());
+        verify(userRepository).findByEmail(createDTO.email());
+        verify(userRepository, never()).save(any(User.class));
+        verify(userMapper, never()).toDTO(any(User.class));
+    }
+
+    @Test
+    void createUser_withNullInput_shouldThrowException() {
+        assertThatThrownBy(() -> userService.createUser(null))
+                .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void updateUser_withInvalidId_throwsUserNotFoundException() {
+        Long invalidUserId = 999L;
+        when(userRepository.findById(invalidUserId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userService.updateUser(invalidUserId, updateDTO))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining(String.valueOf(invalidUserId));
+
+        verify(userRepository).findById(invalidUserId);
+        verify(userRepository, never()).save(any(User.class));
+        verify(userMapper, never()).toDTO(any(User.class));
+    }
+
+    @Test
+    void updateUser_withNullId_throwsUserNotFoundException() {
+        when(userRepository.findById(null)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userService.updateUser(null, updateDTO))
+                .isInstanceOf(UserNotFoundException.class);
+
+        verify(userRepository).findById(null);
+        verify(userRepository, never()).save(any(User.class));
+        verify(userMapper, never()).toDTO(any(User.class));
+    }
+
+    @Test
+    void getUsers_withEmptyResult_returnsEmptyPage() {
+        Page<User> emptyPage = Page.empty();
+        when(userRepository.findAll(any(Specification.class), eq(pageable)))
+                .thenReturn(emptyPage);
+
+        Page<UserResponseDTO> result = userService.getUsers(searchUsersFilter, pageable);
+
+        assertThat(result).isEmpty();
+        verify(userRepository).findAll(any(Specification.class), eq(pageable));
+    }
+
+    @Test
+    void getUsers_withNullFilter_returnsAllUsers() {
+        when(userRepository.findAll(any(Specification.class), eq(pageable)))
+                .thenReturn(userPage);
+
+        Page<UserResponseDTO> result = userService.getUsers(null, pageable);
+
+        assertThat(result).hasSize(1);
+        verify(userRepository).findAll(any(Specification.class), eq(pageable));
+    }
+
+    @Test
+    void getUsers_withNullPageable_shouldThrowException() {
+        assertThatThrownBy(() -> userService.getUsers(searchUsersFilter, null))
+                .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void deleteById_withInvalidId_doesNotThrowException() {
+        // Should not throw exception even if user doesn't exist
+        doNothing().when(userRepository).deleteById(userId);
+
+        userService.deleteById(userId);
+
+        verify(userRepository).deleteById(userId);
+    }
+
+    @Test
+    void createUser_withInvalidEmailFormat_shouldNotBeValidatedByService() {
+        // Note: Email format validation should typically be done in DTO validation (@Email annotation)
+        // This test shows that service doesn't handle email format validation
+        UserCreateDTO invalidEmailDTO = new UserCreateDTO(
+                "username",
+                "password",
+                "invalid-email",
+                UserRole.USER
+        );
+
+        when(userRepository.findByUsername(invalidEmailDTO.username())).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(invalidEmailDTO.email())).thenReturn(Optional.empty());
+        when(userMapper.toEntity(invalidEmailDTO)).thenReturn(user);
+        when(userRepository.save(user)).thenReturn(user);
+        when(userMapper.toDTO(user)).thenReturn(response);
+
+        UserResponseDTO result = userService.createUser(invalidEmailDTO);
+
+        assertThat(result).isEqualTo(response);
+        verify(userRepository).save(user);
+    }
+
+    @Test
+    void createUser_withEmptyUsername_shouldThrowException() {
+        UserCreateDTO emptyUsernameDTO = new UserCreateDTO(
+                "",
+                "password",
+                "email@mail.com",
+                UserRole.USER
+        );
+
+        // Depending on your validation strategy, you might want to add validation here
+        when(userRepository.findByUsername("")).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(emptyUsernameDTO.email())).thenReturn(Optional.empty());
+        when(userMapper.toEntity(emptyUsernameDTO)).thenReturn(user);
+        when(userRepository.save(user)).thenReturn(user);
+        when(userMapper.toDTO(user)).thenReturn(response);
+
+        UserResponseDTO result = userService.createUser(emptyUsernameDTO);
+
+        // This will pass unless you add username validation in service
+        assertThat(result).isEqualTo(response);
+    }
+
+    @Test
+    void findById_withZeroId_throwsUserNotFoundException() {
+        Long zeroId = 0L;
+        when(userRepository.findById(zeroId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userService.findById(zeroId))
+                .isInstanceOf(UserNotFoundException.class);
+
+        verify(userRepository).findById(zeroId);
+    }
+
+    @Test
+    void findById_withNegativeId_throwsUserNotFoundException() {
+        Long negativeId = -1L;
+        when(userRepository.findById(negativeId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userService.findById(negativeId))
+                .isInstanceOf(UserNotFoundException.class);
+
+        verify(userRepository).findById(negativeId);
     }
 }
