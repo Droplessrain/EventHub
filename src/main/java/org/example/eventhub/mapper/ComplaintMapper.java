@@ -1,44 +1,32 @@
 package org.example.eventhub.mapper;
 
-import org.example.eventhub.dto.security.LoginRequest;
-import org.example.eventhub.dto.user.UserCreateDTO;
-import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.model.entity.User;
+import org.example.eventhub.dto.complaint.ComplaintCreateDTO;
+import org.example.eventhub.dto.complaint.ComplaintResponseDTO;
+import org.example.eventhub.model.entity.Complaint;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-import java.util.List;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.ERROR,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         collectionMappingStrategy = CollectionMappingStrategy.TARGET_IMMUTABLE)
-public interface UserMapper {
+public interface ComplaintMapper {
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    User toEntity(UserResponseDTO userResponseDTO);
+    Complaint toEntity(ComplaintResponseDTO complaintResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    User toEntity(UserCreateDTO userCreateDTO);
+    Complaint toEntity(ComplaintCreateDTO complaintCreateDTO);
 
-    @Mapping(target = "created_date", ignore = true)
-    @Mapping(target = "updated_date", ignore = true)
-    @Mapping(target = "version", ignore = true)
-    @Mapping(target = "id", ignore = true)
-    List<User> toEntity(List<UserResponseDTO> userResponseDTO);
-
-    LoginRequest toLoginRequest(UserResponseDTO userResponseDTO);
-    
-    UserResponseDTO toDTO(User user);
-
-    List<UserResponseDTO> toDTO(List<User> user);
+    ComplaintResponseDTO toDto(Complaint complaint);
 }

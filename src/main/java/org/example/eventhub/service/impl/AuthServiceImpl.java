@@ -6,9 +6,9 @@ import org.example.eventhub.dto.security.LoginRequest;
 import org.example.eventhub.dto.security.RefreshTokenRequest;
 import org.example.eventhub.dto.user.UserCreateDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.exception.InvalidPasswordForUsernameException;
-import org.example.eventhub.exception.InvalidRefreshTokenException;
-import org.example.eventhub.exception.InvalidUsernameInLoginRequestException;
+import org.example.eventhub.exception.user.InvalidPasswordForUsernameException;
+import org.example.eventhub.exception.security.InvalidRefreshTokenException;
+import org.example.eventhub.exception.security.InvalidUsernameInLoginRequestException;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
 import org.example.eventhub.repository.UserRepository;
@@ -20,7 +20,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
