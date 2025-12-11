@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.example.eventhub.model.enums.UserRole;
 
-public record UserCreateDTO(
+public record UserCreateRequestDTO(
         @NotNull(message = "username is required")
         @Size(min = 3, message = "username must be more 3")
         String username,

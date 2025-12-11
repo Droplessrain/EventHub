@@ -1,11 +1,11 @@
 package org.example.eventhub.auth;
 
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.dto.user.UserUpdateDTO;
-import org.example.eventhub.exception.UserNotFoundException;
-import org.example.eventhub.exception.UserWithThisEmailAlreadyExist;
-import org.example.eventhub.exception.UserWithThisUsernameAlreadyExist;
+import org.example.eventhub.dto.user.UserUpdateRequestDTO;
+import org.example.eventhub.exception.user.UserNotFoundException;
+import org.example.eventhub.exception.user.UserWithThisEmailAlreadyExist;
+import org.example.eventhub.exception.user.UserWithThisUsernameAlreadyExist;
 import org.example.eventhub.filterEntity.SearchUsersFilter;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
@@ -50,8 +50,8 @@ public class UserServiceImplTest {
     private UserResponseDTO response;
     private UserResponseDTO updateResponse;
     private SearchUsersFilter searchUsersFilter;
-    private UserUpdateDTO updateDTO;
-    private UserCreateDTO createDTO;
+    private UserUpdateRequestDTO updateDTO;
+    private UserCreateRequestDTO createDTO;
     private List<User> userList;
     private Page<User> userPage;
     private Pageable pageable;
@@ -84,8 +84,8 @@ public class UserServiceImplTest {
                 "testemail1@mail.com");
 
         searchUsersFilter = new SearchUsersFilter("username", UserRole.USER);
-        updateDTO = new UserUpdateDTO("username1", "testpassword", "testemail1@mail.com");
-        createDTO = new UserCreateDTO("username", "testpassword", "testemail@mail.com", UserRole.USER);
+        updateDTO = new UserUpdateRequestDTO("username1", "testpassword", "testemail1@mail.com");
+        createDTO = new UserCreateRequestDTO("username", "testpassword", "testemail@mail.com", UserRole.USER);
         userList = List.of(user);
         pageable = Pageable.ofSize(1);
         userPage = new PageImpl<User>(userList, pageable, 1L) ;
@@ -280,7 +280,7 @@ public class UserServiceImplTest {
 
     @Test
     void deleteById_withInvalidId_doesNotThrowException() {
-        // Should not throw exception even if user doesn't exist
+        // Should not throw exception even if userId doesn't exist
         doNothing().when(userRepository).deleteById(userId);
 
         userService.deleteById(userId);
@@ -292,7 +292,7 @@ public class UserServiceImplTest {
     void createUser_withInvalidEmailFormat_shouldNotBeValidatedByService() {
         // Note: Email format validation should typically be done in DTO validation (@Email annotation)
         // This test shows that service doesn't handle email format validation
-        UserCreateDTO invalidEmailDTO = new UserCreateDTO(
+        UserCreateRequestDTO invalidEmailDTO = new UserCreateRequestDTO(
                 "username",
                 "password",
                 "invalid-email",
@@ -313,7 +313,7 @@ public class UserServiceImplTest {
 
     @Test
     void createUser_withEmptyUsername_shouldThrowException() {
-        UserCreateDTO emptyUsernameDTO = new UserCreateDTO(
+        UserCreateRequestDTO emptyUsernameDTO = new UserCreateRequestDTO(
                 "",
                 "password",
                 "email@mail.com",

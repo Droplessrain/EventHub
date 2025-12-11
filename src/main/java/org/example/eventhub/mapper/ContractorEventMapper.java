@@ -1,44 +1,34 @@
 package org.example.eventhub.mapper;
 
-import org.example.eventhub.dto.security.LoginRequest;
-import org.example.eventhub.dto.user.UserCreateRequestDTO;
-import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.model.entity.User;
+import org.example.eventhub.dto.contractorEvent.ContractorEventCreateRequestDTO;
+import org.example.eventhub.dto.contractorEvent.ContractorEventResponseDTO;
+import org.example.eventhub.model.entity.ContractorEvent;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-import java.util.List;
-
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.ERROR,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         collectionMappingStrategy = CollectionMappingStrategy.TARGET_IMMUTABLE)
-public interface UserMapper {
+public interface ContractorEventMapper {
+    @Mapping(target = "created_date", ignore = true)
+    @Mapping(target = "updated_date", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "event.id", source = "eventId")
+    ContractorEvent toEntity(ContractorEventResponseDTO contractorEventResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    User toEntity(UserResponseDTO userResponseDTO);
+    @Mapping(target = "event.id", source = "eventId")
+    ContractorEvent toEntity(ContractorEventCreateRequestDTO contractorEventCreateRequestDTO);
 
-    @Mapping(target = "created_date", ignore = true)
-    @Mapping(target = "updated_date", ignore = true)
-    @Mapping(target = "version", ignore = true)
-    @Mapping(target = "id", ignore = true)
-    User toEntity(UserCreateRequestDTO userCreateDTO);
+    @Mapping(source = "event.id", target = "eventId")
+    ContractorEventResponseDTO toDTO(ContractorEvent contractorEvent);
 
-    @Mapping(target = "created_date", ignore = true)
-    @Mapping(target = "updated_date", ignore = true)
-    @Mapping(target = "version", ignore = true)
-    @Mapping(target = "id", ignore = true)
-    List<User> toEntity(List<UserResponseDTO> userResponseDTO);
-
-    LoginRequest toLoginRequest(UserResponseDTO userResponseDTO);
-    
-    UserResponseDTO toDTO(User user);
-
-    List<UserResponseDTO> toDTO(List<User> user);
 }

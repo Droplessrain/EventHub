@@ -1,4 +1,4 @@
-package org.example.eventhub.exception;
+package org.example.eventhub.exception.security;
 
 public class InvalidRefreshTokenException extends RuntimeException{
     public InvalidRefreshTokenException(String message){

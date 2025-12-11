@@ -1,4 +1,4 @@
-package org.example.eventhub.exception;
+package org.example.eventhub.exception.security;
 
 public class InvalidUsernameInLoginRequestException extends RuntimeException {
     public InvalidUsernameInLoginRequestException(String message) {
