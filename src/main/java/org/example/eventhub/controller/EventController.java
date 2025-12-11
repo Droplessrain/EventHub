@@ -25,7 +25,7 @@ public class EventController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EventResponseDTO getEvent(@PathVariable Long id){
+    public EventResponseDTO getEventById(@PathVariable Long id){
         return eventService.findById(id);
     }
 

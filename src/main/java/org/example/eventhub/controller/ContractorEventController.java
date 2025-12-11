@@ -25,7 +25,7 @@ public class ContractorEventController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ContractorEventResponseDTO getContractorEvent(@PathVariable Long id){
+    public ContractorEventResponseDTO getContractorEventById(@PathVariable Long id){
         return contractorEventService.findById(id);
     }
 

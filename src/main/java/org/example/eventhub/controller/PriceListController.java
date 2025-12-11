@@ -25,7 +25,7 @@ public class PriceListController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public PriceListResponseDTO getPriceList(@PathVariable Long id){
+    public PriceListResponseDTO getPriceListById(@PathVariable Long id){
         return priceListService.findById(id);
     }
 

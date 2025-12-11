@@ -25,7 +25,7 @@ public class FeedbackController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public FeedbackResponseDTO getFeedback(@PathVariable Long id){
+    public FeedbackResponseDTO getFeedbackById(@PathVariable Long id){
         return feedbackService.findById(id);
     }
 

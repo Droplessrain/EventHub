@@ -25,7 +25,7 @@ public class ContractorController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ContractorResponseDTO getContractor(@PathVariable Long id){
+    public ContractorResponseDTO getContractorById(@PathVariable Long id){
         return contractorService.findById(id);
     }
 

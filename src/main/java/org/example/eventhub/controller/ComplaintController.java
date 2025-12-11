@@ -25,7 +25,7 @@ public class ComplaintController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ComplaintResponseDTO getComplaint(@PathVariable Long id){
+    public ComplaintResponseDTO getComplaintById(@PathVariable Long id){
         return complaintService.findById(id);
     }
 

@@ -25,7 +25,7 @@ public class RequestBookingController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public RequestBookingResponseDTO getRequestBooking(@PathVariable Long id){
+    public RequestBookingResponseDTO getRequestBookingById(@PathVariable Long id){
         return requestBookingService.findById(id);
     }
 
