@@ -1,14 +1,12 @@
 package org.example.eventhub.dto.contractor;
 
-import org.example.eventhub.model.entity.User;
-
 import java.time.LocalDate;
 
 public record ContractorCreateRequestDTO(
         String name,
         String lastName,
         LocalDate birthDate,
-        User user,
+        Long userId,
         String description
 ) {
 }

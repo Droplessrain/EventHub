@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 
 public record RequestBookingResponseDTO(
         LocalDateTime requestDateTime,
-        User user,
-        Contractor contractor,
+        Long userId,
+        Long contractorId,
         Event event,
         BookingStatus bookingStatus,
         String rejectReason,

@@ -18,14 +18,17 @@ public interface ContractorEventMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "event.id", source = "eventId")
     ContractorEvent toEntity(ContractorEventResponseDTO contractorEventResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "event.id", source = "eventId")
     ContractorEvent toEntity(ContractorEventCreateRequestDTO contractorEventCreateRequestDTO);
 
+    @Mapping(source = "event.id", target = "eventId")
     ContractorEventResponseDTO toDTO(ContractorEvent contractorEvent);
 
 }

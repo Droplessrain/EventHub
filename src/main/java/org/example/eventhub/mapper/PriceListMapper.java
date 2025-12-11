@@ -18,13 +18,16 @@ public interface PriceListMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "contractor.id", source = "contractorId")
     PriceList toEntity(PriceListResponseDTO priceListResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "contractor.id", source = "contractorId")
     PriceList toEntity(PriceListCreateRequestDTO priceListCreateDTO);
 
+    @Mapping(source = "contractor.id", target = "contractorId")
     PriceListResponseDTO toDTO(PriceList priceList);
 }

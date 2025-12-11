@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public record ContractorEventResponseDTO(
         Contractor contractor,
-        Event event,
+        Long eventId,
         LocalDateTime contractorEventDateTime,
         Short totalTime,
         Long cost,

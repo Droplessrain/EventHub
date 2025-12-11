@@ -6,7 +6,7 @@ import org.example.eventhub.model.enums.EventType;
 import java.time.LocalDateTime;
 
 public record EventResponseDTO(
-        User user,
+        Long userId,
         String title,
         EventType eventType,
         LocalDateTime eventDate,

@@ -8,7 +8,7 @@ public record ContractorResponseDTO(
         String name,
         String lastName,
         LocalDate birthDate,
-        User user,
+        Long userId,
         String description
 ) {
 }

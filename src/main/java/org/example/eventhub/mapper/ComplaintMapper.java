@@ -26,6 +26,7 @@ public interface ComplaintMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user.id", source = "userId")
     Complaint toEntity(ComplaintCreateRequestDTO complaintCreateRequestDTO);
 
     ComplaintResponseDTO toDto(Complaint complaint);

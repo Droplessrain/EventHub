@@ -280,7 +280,7 @@ public class UserServiceImplTest {
 
     @Test
     void deleteById_withInvalidId_doesNotThrowException() {
-        // Should not throw exception even if user doesn't exist
+        // Should not throw exception even if userId doesn't exist
         doNothing().when(userRepository).deleteById(userId);
 
         userService.deleteById(userId);
