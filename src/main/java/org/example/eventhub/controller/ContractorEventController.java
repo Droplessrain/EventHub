@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/contractorEvent")
+@RequestMapping("/api/v1/contractorEvent")
 @AllArgsConstructor
 public class ContractorEventController {
     private final ContractorEventService contractorEventService;

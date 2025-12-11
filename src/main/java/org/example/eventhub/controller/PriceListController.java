@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/pricelist")
+@RequestMapping("/api/v1/pricelist")
 @AllArgsConstructor
 public class PriceListController {
     private final PriceListService priceListService;

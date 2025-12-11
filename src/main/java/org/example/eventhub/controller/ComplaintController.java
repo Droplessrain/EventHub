@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/complaint")
+@RequestMapping("/api/v1/complaint")
 @AllArgsConstructor
 public class ComplaintController {
     private final ComplaintService complaintService;
