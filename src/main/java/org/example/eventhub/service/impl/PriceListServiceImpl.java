@@ -1,9 +1,9 @@
 package org.example.eventhub.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.priceList.PriceListCreateDTO;
+import org.example.eventhub.dto.priceList.PriceListCreateRequestDTO;
 import org.example.eventhub.dto.priceList.PriceListResponseDTO;
-import org.example.eventhub.dto.priceList.PriceListUpdateDTO;
+import org.example.eventhub.dto.priceList.PriceListUpdateRequestDTO;
 import org.example.eventhub.exception.priceList.PriceListNotFoundException;
 import org.example.eventhub.mapper.PriceListMapper;
 import org.example.eventhub.model.entity.PriceList;
@@ -28,14 +28,14 @@ public class PriceListServiceImpl implements PriceListService {
     }
 
     @Override
-    public PriceListResponseDTO updateComplaint(Long id, PriceListUpdateDTO priceListUpdateDTO) {
+    public PriceListResponseDTO updateComplaint(Long id, PriceListUpdateRequestDTO priceListUpdateDTO) {
         PriceList priceList = priceListRepository.findById(id)
                 .orElseThrow(()-> new PriceListNotFoundException(String.format(PRICELIST_BY_ID_NOT_FOUND, id)));
         return priceListMapper.toDTO(priceListRepository.save(priceList));
     }
 
     @Override
-    public PriceListResponseDTO createComplaint(PriceListCreateDTO priceListCreateDTO) {
+    public PriceListResponseDTO createComplaint(PriceListCreateRequestDTO priceListCreateDTO) {
         return priceListMapper.toDTO(priceListRepository
                 .save(priceListMapper
                         .toEntity(priceListCreateDTO)));

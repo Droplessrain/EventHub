@@ -1,9 +1,9 @@
 package org.example.eventhub.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.requestBooking.RequestBookingCreateDTO;
+import org.example.eventhub.dto.requestBooking.RequestBookingCreateRequestDTO;
 import org.example.eventhub.dto.requestBooking.RequestBookingResponseDTO;
-import org.example.eventhub.dto.requestBooking.RequestBookingUpdateDTO;
+import org.example.eventhub.dto.requestBooking.RequestBookingUpdateRequestDTO;
 import org.example.eventhub.exception.requestBooking.RequestBookingNotFoundException;
 import org.example.eventhub.mapper.RequestBookingMapper;
 import org.example.eventhub.model.entity.RequestBooking;
@@ -30,7 +30,7 @@ public class RequestBookingServiceImpl implements RequestBookingService {
     }
 
     @Override
-    public RequestBookingResponseDTO updateComplaint(Long id, RequestBookingUpdateDTO requestBookingUpdateDTO) {
+    public RequestBookingResponseDTO updateComplaint(Long id, RequestBookingUpdateRequestDTO requestBookingUpdateDTO) {
         RequestBooking request = repository
                 .findById(id)
                 .orElseThrow(() -> new RequestBookingNotFoundException(String.format(REQUEST_BOOKING_BY_ID_NOT_FOUND, id)));
@@ -39,7 +39,7 @@ public class RequestBookingServiceImpl implements RequestBookingService {
     }
 
     @Override
-    public RequestBookingResponseDTO createComplaint(RequestBookingCreateDTO requestBookingCreateDTO) {
+    public RequestBookingResponseDTO createComplaint(RequestBookingCreateRequestDTO requestBookingCreateDTO) {
         RequestBooking requestBooking = repository.save(mapper.toEntity(requestBookingCreateDTO));
         return mapper.toDto(requestBooking);
     }

@@ -1,9 +1,9 @@
 package org.example.eventhub.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.complaint.ComplaintCreateDTO;
+import org.example.eventhub.dto.complaint.ComplaintCreateRequestDTO;
 import org.example.eventhub.dto.complaint.ComplaintResponseDTO;
-import org.example.eventhub.dto.complaint.ComplaintUpdateDTO;
+import org.example.eventhub.dto.complaint.ComplaintUpdateRequestDTO;
 import org.example.eventhub.exception.comlaint.ComplaintNotFoundException;
 import org.example.eventhub.mapper.ComplaintMapper;
 import org.example.eventhub.model.entity.Complaint;
@@ -30,7 +30,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public ComplaintResponseDTO updateComplaint(Long id, ComplaintUpdateDTO complaintUpdateDTO) {
+    public ComplaintResponseDTO updateComplaint(Long id, ComplaintUpdateRequestDTO complaintUpdateRequestDTO) {
         Complaint complaint = complaintRepository.save(
                 complaintRepository
                         .findById(id)
@@ -40,10 +40,10 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public ComplaintResponseDTO createComplaint(ComplaintCreateDTO complaintCreateDTO) {
+    public ComplaintResponseDTO createComplaint(ComplaintCreateRequestDTO complaintCreateRequestDTO) {
         return complaintMapper
                 .toDto(complaintRepository
-                        .save(complaintMapper.toEntity(complaintCreateDTO)));
+                        .save(complaintMapper.toEntity(complaintCreateRequestDTO)));
 
     }
 

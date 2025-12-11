@@ -2,9 +2,9 @@ package org.example.eventhub.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.dto.user.UserUpdateDTO;
+import org.example.eventhub.dto.user.UserUpdateRequestDTO;
 import org.example.eventhub.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,13 +31,13 @@ public class UserController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponseDTO createUser(@Valid @RequestBody UserCreateDTO userCreateDTO){
+    public UserResponseDTO createUser(@Valid @RequestBody UserCreateRequestDTO userCreateDTO){
         return userService.createUser(userCreateDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponseDTO updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO){
+    public UserResponseDTO updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequestDTO userUpdateDTO){
         return userService.updateUser(id, userUpdateDTO);
     }
 

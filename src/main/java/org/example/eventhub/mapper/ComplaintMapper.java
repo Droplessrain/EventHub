@@ -1,6 +1,6 @@
 package org.example.eventhub.mapper;
 
-import org.example.eventhub.dto.complaint.ComplaintCreateDTO;
+import org.example.eventhub.dto.complaint.ComplaintCreateRequestDTO;
 import org.example.eventhub.dto.complaint.ComplaintResponseDTO;
 import org.example.eventhub.model.entity.Complaint;
 import org.mapstruct.CollectionMappingStrategy;
@@ -26,7 +26,7 @@ public interface ComplaintMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    Complaint toEntity(ComplaintCreateDTO complaintCreateDTO);
+    Complaint toEntity(ComplaintCreateRequestDTO complaintCreateRequestDTO);
 
     ComplaintResponseDTO toDto(Complaint complaint);
 }

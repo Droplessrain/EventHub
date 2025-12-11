@@ -7,7 +7,7 @@ import org.example.eventhub.model.enums.ComplaintStatus;
 
 import java.time.LocalDateTime;
 
-public record ComplaintCreateDTO(
+public record ComplaintCreateRequestDTO(
         LocalDateTime complaintDateTime,
         @Size(max = 80)
         String title,

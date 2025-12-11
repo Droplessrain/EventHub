@@ -1,17 +1,19 @@
 package org.example.eventhub.service;
 
-import org.example.eventhub.dto.contractorEvent.ContractorEventCreateDTO;
+import org.example.eventhub.dto.contractorEvent.ContractorEventCreateRequestDTO;
 import org.example.eventhub.dto.contractorEvent.ContractorEventResponseDTO;
-import org.example.eventhub.dto.contractorEvent.ContractorEventUpdateDTO;
+import org.example.eventhub.dto.contractorEvent.ContractorEventUpdateRequestDTO;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface ContractorEventService {
     ContractorEventResponseDTO findById(Long id);
 
-    ContractorEventResponseDTO updateContractorEvent(Long id, ContractorEventUpdateDTO contractorEventUpdateDTO);
+    ContractorEventResponseDTO findByContractorId(Long id);
 
-    ContractorEventResponseDTO createContractorEvent(ContractorEventCreateDTO contractorEventCreateDTO);
+    ContractorEventResponseDTO updateContractorEvent(Long id, ContractorEventUpdateRequestDTO contractorEventUpdateDTO);
+
+    ContractorEventResponseDTO createContractorEvent(ContractorEventCreateRequestDTO contractorEventCreateRequestDTO);
 
     void deleteById(Long id);
 }

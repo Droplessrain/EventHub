@@ -1,6 +1,6 @@
 package org.example.eventhub.mapper;
 
-import org.example.eventhub.dto.requestBooking.RequestBookingCreateDTO;
+import org.example.eventhub.dto.requestBooking.RequestBookingCreateRequestDTO;
 import org.example.eventhub.dto.requestBooking.RequestBookingResponseDTO;
 import org.example.eventhub.model.entity.RequestBooking;
 import org.mapstruct.CollectionMappingStrategy;
@@ -24,7 +24,7 @@ public interface RequestBookingMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    RequestBooking toEntity(RequestBookingCreateDTO requestBookingCreateDTO);
+    RequestBooking toEntity(RequestBookingCreateRequestDTO requestBookingCreateDTO);
     
     RequestBookingResponseDTO toDto(RequestBooking requestBooking);
 

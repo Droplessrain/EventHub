@@ -2,9 +2,9 @@ package org.example.eventhub.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.requestBooking.RequestBookingCreateDTO;
+import org.example.eventhub.dto.requestBooking.RequestBookingCreateRequestDTO;
 import org.example.eventhub.dto.requestBooking.RequestBookingResponseDTO;
-import org.example.eventhub.dto.requestBooking.RequestBookingUpdateDTO;
+import org.example.eventhub.dto.requestBooking.RequestBookingUpdateRequestDTO;
 import org.example.eventhub.service.RequestBookingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,13 +31,13 @@ public class RequestBookingController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public RequestBookingResponseDTO createRequestBooking(@Valid @RequestBody RequestBookingCreateDTO createDTO){
+    public RequestBookingResponseDTO createRequestBooking(@Valid @RequestBody RequestBookingCreateRequestDTO createDTO){
         return requestBookingService.createComplaint(createDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public RequestBookingResponseDTO updateRequestBooking(@PathVariable Long id, @Valid @RequestBody RequestBookingUpdateDTO updateDTO){
+    public RequestBookingResponseDTO updateRequestBooking(@PathVariable Long id, @Valid @RequestBody RequestBookingUpdateRequestDTO updateDTO){
         return requestBookingService.updateComplaint(id, updateDTO);
     }
 

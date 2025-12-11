@@ -1,6 +1,6 @@
 package org.example.eventhub.mapper;
 
-import org.example.eventhub.dto.priceList.PriceListCreateDTO;
+import org.example.eventhub.dto.priceList.PriceListCreateRequestDTO;
 import org.example.eventhub.dto.priceList.PriceListResponseDTO;
 import org.example.eventhub.model.entity.PriceList;
 import org.mapstruct.CollectionMappingStrategy;
@@ -24,7 +24,7 @@ public interface PriceListMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    PriceList toEntity(PriceListCreateDTO priceListCreateDTO);
+    PriceList toEntity(PriceListCreateRequestDTO priceListCreateDTO);
 
     PriceListResponseDTO toDTO(PriceList priceList);
 }

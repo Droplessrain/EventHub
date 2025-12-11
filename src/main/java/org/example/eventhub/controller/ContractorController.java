@@ -2,9 +2,9 @@ package org.example.eventhub.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.contractor.ContractorCreateDTO;
+import org.example.eventhub.dto.contractor.ContractorCreateRequestDTO;
 import org.example.eventhub.dto.contractor.ContractorResponseDTO;
-import org.example.eventhub.dto.contractor.ContractorUpdateDTO;
+import org.example.eventhub.dto.contractor.ContractorUpdateRequestDTO;
 import org.example.eventhub.service.ContractorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,14 +31,14 @@ public class ContractorController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ContractorResponseDTO createContractor(@Valid @RequestBody ContractorCreateDTO contractorCreateDTO){
-        return contractorService.createContractor(contractorCreateDTO);
+    public ContractorResponseDTO createContractor(@Valid @RequestBody ContractorCreateRequestDTO contractorCreateRequestDTO){
+        return contractorService.createContractor(contractorCreateRequestDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ContractorResponseDTO updateContractor(@PathVariable Long id, @Valid @RequestBody ContractorUpdateDTO contractorUpdateDTO){
-        return contractorService.updateContractor(id, contractorUpdateDTO);
+    public ContractorResponseDTO updateContractor(@PathVariable Long id, @Valid @RequestBody ContractorUpdateRequestDTO contractorUpdateRequestDTO){
+        return contractorService.updateContractor(id, contractorUpdateRequestDTO);
     }
 
     @DeleteMapping("/{id}")

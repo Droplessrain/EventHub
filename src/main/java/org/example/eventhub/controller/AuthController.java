@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import org.example.eventhub.dto.security.JwtResponse;
 import org.example.eventhub.dto.security.LoginRequest;
 import org.example.eventhub.dto.security.RefreshTokenRequest;
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<JwtResponse> signUp(@Valid @RequestBody UserCreateDTO userCreateDTO){
+    public ResponseEntity<JwtResponse> signUp(@Valid @RequestBody UserCreateRequestDTO userCreateDTO){
         return new ResponseEntity<>(
                 authService.signUp(userCreateDTO), HttpStatus.CREATED);
     }

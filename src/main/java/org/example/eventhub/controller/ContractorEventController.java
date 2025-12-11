@@ -2,9 +2,9 @@ package org.example.eventhub.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.contractorEvent.ContractorEventCreateDTO;
+import org.example.eventhub.dto.contractorEvent.ContractorEventCreateRequestDTO;
 import org.example.eventhub.dto.contractorEvent.ContractorEventResponseDTO;
-import org.example.eventhub.dto.contractorEvent.ContractorEventUpdateDTO;
+import org.example.eventhub.dto.contractorEvent.ContractorEventUpdateRequestDTO;
 import org.example.eventhub.service.ContractorEventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,15 +29,21 @@ public class ContractorEventController {
         return contractorEventService.findById(id);
     }
 
+    @GetMapping("/find_by_contractor/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ContractorEventResponseDTO getContractorEventByContractorId(@PathVariable Long id){
+        return contractorEventService.findByContractorId(id);
+    }
+
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ContractorEventResponseDTO createContractorEvent(@Valid @RequestBody ContractorEventCreateDTO createDTO){
+    public ContractorEventResponseDTO createContractorEvent(@Valid @RequestBody ContractorEventCreateRequestDTO createDTO){
         return contractorEventService.createContractorEvent(createDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ContractorEventResponseDTO updateContractorEvent(@PathVariable Long id, @Valid @RequestBody ContractorEventUpdateDTO updateDTO){
+    public ContractorEventResponseDTO updateContractorEvent(@PathVariable Long id, @Valid @RequestBody ContractorEventUpdateRequestDTO updateDTO){
         return contractorEventService.updateContractorEvent(id, updateDTO);
     }
 

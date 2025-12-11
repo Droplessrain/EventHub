@@ -2,9 +2,9 @@ package org.example.eventhub.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.feedback.FeedbackCreateDTO;
+import org.example.eventhub.dto.feedback.FeedbackCreateRequestDTO;
 import org.example.eventhub.dto.feedback.FeedbackResponseDTO;
-import org.example.eventhub.dto.feedback.FeedbackUpdateDTO;
+import org.example.eventhub.dto.feedback.FeedbackUpdateRequestDTO;
 import org.example.eventhub.service.FeedbackService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,13 +31,13 @@ public class FeedbackController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public FeedbackResponseDTO createFeedback(@Valid @RequestBody FeedbackCreateDTO createDTO){
+    public FeedbackResponseDTO createFeedback(@Valid @RequestBody FeedbackCreateRequestDTO createDTO){
         return feedbackService.createFeedback(createDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public FeedbackResponseDTO updateFeedback(@PathVariable Long id, @Valid @RequestBody FeedbackUpdateDTO updateDTO){
+    public FeedbackResponseDTO updateFeedback(@PathVariable Long id, @Valid @RequestBody FeedbackUpdateRequestDTO updateDTO){
         return feedbackService.updateFeedback(id, updateDTO);
     }
 

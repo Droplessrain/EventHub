@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.eventhub.dto.security.JwtResponse;
 import org.example.eventhub.dto.security.LoginRequest;
 import org.example.eventhub.dto.security.RefreshTokenRequest;
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.exception.user.InvalidPasswordForUsernameException;
 import org.example.eventhub.exception.security.InvalidRefreshTokenException;
@@ -72,7 +72,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JwtResponse signUp(UserCreateDTO userCreateDTO) {
+    public JwtResponse signUp(UserCreateRequestDTO userCreateDTO) {
         UserResponseDTO userResponseDTO = userService.createUser(userCreateDTO);
         return login(userMapper.toLoginRequest(userResponseDTO));
     }

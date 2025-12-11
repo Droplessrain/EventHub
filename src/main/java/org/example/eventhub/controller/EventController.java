@@ -2,9 +2,9 @@ package org.example.eventhub.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.event.EventCreateDTO;
+import org.example.eventhub.dto.event.EventCreateRequestDTO;
 import org.example.eventhub.dto.event.EventResponseDTO;
-import org.example.eventhub.dto.event.EventUpdateDTO;
+import org.example.eventhub.dto.event.EventUpdateRequestDTO;
 import org.example.eventhub.service.EventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,15 +29,21 @@ public class EventController {
         return eventService.findById(id);
     }
 
+    @GetMapping("/find_by_user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public EventResponseDTO getEventByUserId(@PathVariable Long id){
+        return eventService.findByUserId(id);
+    }
+
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public EventResponseDTO createEvent(@Valid @RequestBody EventCreateDTO createDTO){
+    public EventResponseDTO createEvent(@Valid @RequestBody EventCreateRequestDTO createDTO){
         return eventService.createEvent(createDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EventResponseDTO updateEvent(@PathVariable Long id, @Valid @RequestBody EventUpdateDTO updateDTO){
+    public EventResponseDTO updateEvent(@PathVariable Long id, @Valid @RequestBody EventUpdateRequestDTO updateDTO){
         return eventService.updateEvent(id, updateDTO);
     }
 

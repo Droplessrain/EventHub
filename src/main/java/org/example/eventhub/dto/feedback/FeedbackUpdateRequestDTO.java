@@ -2,7 +2,7 @@ package org.example.eventhub.dto.feedback;
 
 import org.example.eventhub.model.enums.FeedbackStatus;
 
-public record FeedbackUpdateDTO(
+public record FeedbackUpdateRequestDTO(
         String title,
         String description,
         String rejectReason,

@@ -1,6 +1,6 @@
 package org.example.eventhub.mapper;
 
-import org.example.eventhub.dto.event.EventCreateDTO;
+import org.example.eventhub.dto.event.EventCreateRequestDTO;
 import org.example.eventhub.dto.event.EventResponseDTO;
 import org.example.eventhub.model.entity.Event;
 import org.mapstruct.CollectionMappingStrategy;
@@ -25,7 +25,7 @@ public interface EventMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    Event toEntity(EventCreateDTO eventCreateDTO);
+    Event toEntity(EventCreateRequestDTO eventCreateDTO);
 
     EventResponseDTO toDto(Event event);
 }

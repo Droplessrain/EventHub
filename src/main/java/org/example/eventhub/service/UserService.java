@@ -1,8 +1,8 @@
 package org.example.eventhub.service;
 
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.dto.user.UserUpdateDTO;
+import org.example.eventhub.dto.user.UserUpdateRequestDTO;
 import org.example.eventhub.filterEntity.SearchUsersFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +15,9 @@ public interface UserService {
 
     Page<UserResponseDTO> getUsers(SearchUsersFilter searchUsersFilter, Pageable pageable);
 
-    UserResponseDTO updateUser(Long id, UserUpdateDTO userUpdateDTO);
+    UserResponseDTO updateUser(Long id, UserUpdateRequestDTO userUpdateDTO);
 
-    UserResponseDTO createUser(UserCreateDTO userCreateDTO);
+    UserResponseDTO createUser(UserCreateRequestDTO userCreateDTO);
 
     void deleteById(Long id);
 }

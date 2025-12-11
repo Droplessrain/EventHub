@@ -3,7 +3,7 @@ package org.example.eventhub.auth;
 import org.example.eventhub.dto.security.JwtResponse;
 import org.example.eventhub.dto.security.LoginRequest;
 import org.example.eventhub.dto.security.RefreshTokenRequest;
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.exception.user.InvalidPasswordForUsernameException;
 import org.example.eventhub.exception.security.InvalidRefreshTokenException;
@@ -63,7 +63,7 @@ class AuthServiceImplTest {
     private AuthServiceImpl authService;
 
     private LoginRequest validLoginRequest;
-    private UserCreateDTO validUserCreateDTO;
+    private UserCreateRequestDTO validUserCreateDTO;
     private UserResponseDTO userResponseDTO;
     private RefreshTokenRequest validRefreshTokenRequest;
     private User testUser;
@@ -72,7 +72,7 @@ class AuthServiceImplTest {
     @BeforeEach
     void setUp() {
         validLoginRequest = new LoginRequest("testuser", "password123");
-        validUserCreateDTO = new UserCreateDTO(
+        validUserCreateDTO = new UserCreateRequestDTO(
                 "testuser",
                 "password123",
                 "test@example.com",
@@ -342,7 +342,7 @@ class AuthServiceImplTest {
 
     @Test
     void signUp_withInvalidData_throwsException() {
-        UserCreateDTO invalidCreateDTO = new UserCreateDTO(
+        UserCreateRequestDTO invalidCreateDTO = new UserCreateRequestDTO(
                 "testuser",
                 "short", // слишком короткий пароль
                 "invalid-email",

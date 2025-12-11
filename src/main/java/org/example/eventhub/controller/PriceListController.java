@@ -2,9 +2,9 @@ package org.example.eventhub.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.priceList.PriceListCreateDTO;
+import org.example.eventhub.dto.priceList.PriceListCreateRequestDTO;
 import org.example.eventhub.dto.priceList.PriceListResponseDTO;
-import org.example.eventhub.dto.priceList.PriceListUpdateDTO;
+import org.example.eventhub.dto.priceList.PriceListUpdateRequestDTO;
 import org.example.eventhub.service.PriceListService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,13 +31,13 @@ public class PriceListController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public PriceListResponseDTO createPriceList(@Valid @RequestBody PriceListCreateDTO createDTO){
+    public PriceListResponseDTO createPriceList(@Valid @RequestBody PriceListCreateRequestDTO createDTO){
         return priceListService.createComplaint(createDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public PriceListResponseDTO updatePriceList(@PathVariable Long id, @Valid @RequestBody PriceListUpdateDTO updateDTO){
+    public PriceListResponseDTO updatePriceList(@PathVariable Long id, @Valid @RequestBody PriceListUpdateRequestDTO updateDTO){
         return priceListService.updateComplaint(id, updateDTO);
     }
 

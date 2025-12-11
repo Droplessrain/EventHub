@@ -1,7 +1,7 @@
 package org.example.eventhub.mapper;
 
 import org.example.eventhub.dto.security.LoginRequest;
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
 import org.example.eventhub.model.entity.User;
 import org.mapstruct.CollectionMappingStrategy;
@@ -28,7 +28,7 @@ public interface UserMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    User toEntity(UserCreateDTO userCreateDTO);
+    User toEntity(UserCreateRequestDTO userCreateDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)

@@ -1,6 +1,6 @@
 package org.example.eventhub.dto.contractor;
 
-public record ContractorUpdateDTO(
+public record ContractorUpdateRequestDTO(
         String description
 ) {
 }

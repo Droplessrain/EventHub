@@ -1,19 +1,18 @@
 package org.example.eventhub.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.event.EventCreateDTO;
+import org.example.eventhub.dto.event.EventCreateRequestDTO;
 import org.example.eventhub.dto.event.EventResponseDTO;
-import org.example.eventhub.dto.event.EventUpdateDTO;
+import org.example.eventhub.dto.event.EventUpdateRequestDTO;
 import org.example.eventhub.exception.event.EventNotFoundException;
 import org.example.eventhub.mapper.EventMapper;
 import org.example.eventhub.model.entity.Event;
-import org.example.eventhub.repository.ContractorEventRepository;
 import org.example.eventhub.repository.EventRepository;
 import org.example.eventhub.service.EventService;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.events.EventException;
 
 import static org.example.eventhub.exception.ErrorConstants.EVENT_BY_ID_NOT_FOUND;
+import static org.example.eventhub.exception.ErrorConstants.EVENT_BY_USER_ID_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +29,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventResponseDTO updateEvent(Long id, EventUpdateDTO eventUpdateDTO) {
+    public EventResponseDTO findByUserId(Long id) {
+        Event event = eventRepository.findByUser(id)
+                .orElseThrow(() -> new EventNotFoundException(String.format(EVENT_BY_USER_ID_NOT_FOUND, id)));
+        return eventMapper.toDto(event);
+    }
+
+    @Override
+    public EventResponseDTO updateEvent(Long id, EventUpdateRequestDTO eventUpdateDTO) {
         Event event = eventRepository
                 .findById(id)
                 .orElseThrow(() -> new EventNotFoundException(String.format(EVENT_BY_ID_NOT_FOUND, id)));
@@ -40,7 +46,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventResponseDTO createEvent(EventCreateDTO eventCreateDTO) {
+    public EventResponseDTO createEvent(EventCreateRequestDTO eventCreateDTO) {
         Event event = eventRepository
                         .save(eventMapper.toEntity(eventCreateDTO));
         return eventMapper.toDto(event);

@@ -1,9 +1,9 @@
 package org.example.eventhub.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.feedback.FeedbackCreateDTO;
+import org.example.eventhub.dto.feedback.FeedbackCreateRequestDTO;
 import org.example.eventhub.dto.feedback.FeedbackResponseDTO;
-import org.example.eventhub.dto.feedback.FeedbackUpdateDTO;
+import org.example.eventhub.dto.feedback.FeedbackUpdateRequestDTO;
 import org.example.eventhub.exception.feedback.FeedbackNotFoundException;
 import org.example.eventhub.mapper.FeedbackMapper;
 import org.example.eventhub.model.entity.Feedback;
@@ -28,7 +28,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackResponseDTO updateFeedback(Long id, FeedbackUpdateDTO feedbackUpdateDTO) {
+    public FeedbackResponseDTO updateFeedback(Long id, FeedbackUpdateRequestDTO feedbackUpdateDTO) {
         Feedback feedback = feedbackRepository.findById(id)
                 .orElseThrow(() -> new FeedbackNotFoundException(String.format(FEEDBACK_BY_ID_NOT_FOUND, id)));
 
@@ -36,7 +36,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackResponseDTO createFeedback(FeedbackCreateDTO complaintCreateDTO) {
+    public FeedbackResponseDTO createFeedback(FeedbackCreateRequestDTO complaintCreateDTO) {
         Feedback feedback = feedbackMapper.toEntity(complaintCreateDTO);
         return feedbackMapper.toDTO(feedbackRepository.save(feedback));
     }

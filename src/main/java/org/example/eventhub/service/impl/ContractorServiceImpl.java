@@ -1,9 +1,9 @@
 package org.example.eventhub.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.example.eventhub.dto.contractor.ContractorCreateDTO;
+import org.example.eventhub.dto.contractor.ContractorCreateRequestDTO;
 import org.example.eventhub.dto.contractor.ContractorResponseDTO;
-import org.example.eventhub.dto.contractor.ContractorUpdateDTO;
+import org.example.eventhub.dto.contractor.ContractorUpdateRequestDTO;
 import org.example.eventhub.exception.contractor.ContractorNotFoundException;
 import org.example.eventhub.mapper.ContractorMapper;
 import org.example.eventhub.model.entity.Contractor;
@@ -30,7 +30,7 @@ public class ContractorServiceImpl implements ContractorService {
     }
 
     @Override
-    public ContractorResponseDTO updateContractor(Long id, ContractorUpdateDTO contractorUpdateDTO) {
+    public ContractorResponseDTO updateContractor(Long id, ContractorUpdateRequestDTO contractorUpdateRequestDTO) {
         Contractor contractor = repository
                                     .findById(id)
                                     .orElseThrow(() -> new ContractorNotFoundException(
@@ -41,7 +41,7 @@ public class ContractorServiceImpl implements ContractorService {
     }
 
     @Override
-    public ContractorResponseDTO createContractor(ContractorCreateDTO complaintCreateDTO) {
+    public ContractorResponseDTO createContractor(ContractorCreateRequestDTO complaintCreateDTO) {
         return mapper.toDTO(
                 repository
                         .save(mapper.toEntity(complaintCreateDTO)));

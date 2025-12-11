@@ -8,7 +8,7 @@ import org.example.eventhub.model.enums.BookingStatus;
 
 import java.time.LocalDateTime;
 
-public record RequestBookingCreateDTO(
+public record RequestBookingCreateRequestDTO(
         LocalDateTime requestDateTime,
         User user,
         Contractor contractor,

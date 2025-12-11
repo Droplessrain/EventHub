@@ -4,7 +4,7 @@ import org.example.eventhub.model.enums.BookingStatus;
 
 import java.time.LocalDateTime;
 
-public record RequestBookingUpdateDTO(
+public record RequestBookingUpdateRequestDTO(
         LocalDateTime requestDateTime,
         BookingStatus bookingStatus,
         String rejectReason,

@@ -8,8 +8,10 @@ public final class ErrorConstants {
     public static final String REQUEST_BOOKING_BY_ID_NOT_FOUND = "Request booking with ID: %s not found";
     public static final String COMPLAINT_BY_ID_NOT_FOUND = "Complaint with ID: %s not found";
     public static final String CONTRACTOR_BY_ID_NOT_FOUND = "Contractor with ID: %s not found";
-    public static final String CONTRACTOR_EVENT_BOOKING_BY_ID_NOT_FOUND = "Contractor event with ID: %s not found";
+    public static final String CONTRACTOR_EVENT_BY_ID_NOT_FOUND = "Contractor event with ID: %s not found";
+    public static final String CONTRACTOR_EVENT_BY_CONTRACTOR_ID_NOT_FOUND = "Contractor event with ID: %s not found";
     public static final String EVENT_BY_ID_NOT_FOUND = "Event with ID: %s not found";
+    public static final String EVENT_BY_USER_ID_NOT_FOUND = "Event with userId: %s not found";
     public static final String FEEDBACK_BY_ID_NOT_FOUND = "Feedback with ID: %s not found";
     public static final String PRICELIST_BY_ID_NOT_FOUND = "PriceList with ID: %s not found";
 

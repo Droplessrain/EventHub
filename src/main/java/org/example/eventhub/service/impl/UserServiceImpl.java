@@ -1,9 +1,9 @@
 package org.example.eventhub.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.dto.user.UserUpdateDTO;
+import org.example.eventhub.dto.user.UserUpdateRequestDTO;
 import org.example.eventhub.exception.user.UserNotFoundException;
 import org.example.eventhub.exception.user.UserWithThisEmailAlreadyExist;
 import org.example.eventhub.exception.user.UserWithThisUsernameAlreadyExist;
@@ -43,13 +43,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO updateUser(Long id, UserUpdateDTO userUpdateDTO) {
+    public UserResponseDTO updateUser(Long id, UserUpdateRequestDTO userUpdateDTO) {
         User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
         return userMapper.toDTO(userRepository.save(user));
     }
 
     @Override
-    public UserResponseDTO createUser(UserCreateDTO userCreateDTO) {
+    public UserResponseDTO createUser(UserCreateRequestDTO userCreateDTO) {
         if(userRepository.findByUsername(userCreateDTO.username()).isPresent()) {
             throw new UserWithThisUsernameAlreadyExist(USER_WITH_THIS_USERNAME_ALREADY_EXIST);
         }
