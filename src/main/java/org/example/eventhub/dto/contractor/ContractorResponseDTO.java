@@ -1,12 +1,13 @@
 package org.example.eventhub.dto.contractor;
 
-import org.example.eventhub.model.entity.User;
+import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 
 public record ContractorResponseDTO(
         String name,
         String lastName,
+        @Past
         LocalDate birthDate,
         Long userId,
         String description
