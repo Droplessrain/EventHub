@@ -42,6 +42,7 @@ public class FeedbackController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFeedback(@PathVariable Long id){
         feedbackService.deleteById(id);
     }

@@ -21,16 +21,16 @@ public interface EventMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "userId.id", source = "userId")
     Event toEntity(EventResponseDTO eventResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "userId.id", source = "userId")
     Event toEntity(EventCreateRequestDTO eventCreateDTO);
 
-    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "userId.id", target = "userId")
     EventResponseDTO toDto(Event event);
 }

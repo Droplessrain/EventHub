@@ -7,7 +7,6 @@ import java.time.LocalDate;
 public record ContractorResponseDTO(
         String name,
         String lastName,
-        @Past
         LocalDate birthDate,
         Long userId,
         String description

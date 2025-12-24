@@ -48,6 +48,7 @@ public class EventController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEvent(@PathVariable Long id){
         eventService.deleteById(id);
     }

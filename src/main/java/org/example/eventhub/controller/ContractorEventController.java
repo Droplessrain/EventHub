@@ -48,6 +48,7 @@ public class ContractorEventController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteContractorEvent(@PathVariable Long id){
         contractorEventService.deleteById(id);
     }

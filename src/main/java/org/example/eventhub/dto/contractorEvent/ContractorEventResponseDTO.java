@@ -1,7 +1,6 @@
 package org.example.eventhub.dto.contractorEvent;
 
 import org.example.eventhub.model.entity.Contractor;
-import org.example.eventhub.model.entity.Event;
 import org.example.eventhub.model.enums.ServiceType;
 
 import java.time.LocalDateTime;

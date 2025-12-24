@@ -18,20 +18,20 @@ public interface RequestBookingMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "contractor.id", source = "contractorId")
-    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "contractorId.id", source = "contractorId")
+    @Mapping(target = "userId.id", source = "userId")
     RequestBooking toEntity(RequestBookingResponseDTO requestBookingResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "contractor.id", source = "contractorId")
-    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "contractorId.id", source = "contractorId")
+    @Mapping(target = "userId.id", source = "userId")
     RequestBooking toEntity(RequestBookingCreateRequestDTO requestBookingCreateDTO);
 
-    @Mapping(source = "contractor.id", target = "contractorId")
-    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "contractorId.id", target = "contractorId")
+    @Mapping(source = "userId.id", target = "userId")
     RequestBookingResponseDTO toDto(RequestBooking requestBooking);
 
 }

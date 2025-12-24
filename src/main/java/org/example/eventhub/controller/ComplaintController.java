@@ -42,6 +42,7 @@ public class ComplaintController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteComplaint(@PathVariable Long id){
         complaintService.deleteById(id);
     }

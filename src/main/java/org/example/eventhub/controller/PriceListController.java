@@ -42,6 +42,7 @@ public class PriceListController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePriceList(@PathVariable Long id){
         priceListService.deleteById(id);
     }

@@ -42,6 +42,7 @@ public class RequestBookingController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRequestBooking(@PathVariable Long id){
         requestBookingService.deleteById(id);
     }
