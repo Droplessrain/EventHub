@@ -23,16 +23,18 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO findById(Long id) {
-        Event event = eventRepository.findById(id)
+
+        return eventRepository
+                .findById(id)
+                .map(eventMapper::toDto)
                 .orElseThrow(() -> new EventNotFoundException(String.format(EVENT_BY_ID_NOT_FOUND, id)));
-        return eventMapper.toDto(event);
     }
 
     @Override
     public EventResponseDTO findByUserId(Long id) {
-        Event event = eventRepository.findByUser(id)
-                .orElseThrow(() -> new EventNotFoundException(String.format(EVENT_BY_USER_ID_NOT_FOUND, id)));
-        return eventMapper.toDto(event);
+        return eventRepository.findByUser(id)
+                .map(eventMapper::toDto)
+                .orElseThrow(() -> new EventNotFoundException(String.format(EVENT_BY_ID_NOT_FOUND, id)));
     }
 
     @Override
@@ -40,9 +42,10 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository
                 .findById(id)
                 .orElseThrow(() -> new EventNotFoundException(String.format(EVENT_BY_ID_NOT_FOUND, id)));
-        return eventMapper
-                .toDto(eventRepository
-                        .save(event));
+
+        EventResponseDTO eventResponseDTO = eventMapper.toDto(
+                                                eventRepository.save(event));
+        return eventResponseDTO;
     }
 
     @Override

@@ -31,8 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO findById(Long id) {
-        return userMapper.toDTO(userRepository.findById(id)
-                .orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id))));
+        return userRepository.findById(id)
+                .map(userMapper::toDTO)
+                .orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
     }
 
     @Override
@@ -44,8 +45,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO updateUser(Long id, UserUpdateRequestDTO userUpdateDTO) {
-        User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
-        return userMapper.toDTO(userRepository.save(user));
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
+
+        User userSaved = userRepository.save(user);
+        return userMapper.toDTO(userSaved);
     }
 
     @Override
@@ -56,8 +61,9 @@ public class UserServiceImpl implements UserService {
         if(userRepository.findByEmail(userCreateDTO.email()).isPresent()) {
             throw new UserWithThisEmailAlreadyExist(USER_WITH_THIS_EMAIL_ALREADY_EXIST);
         }
-        User createdUser = userMapper.toEntity(userCreateDTO);
-        return userMapper.toDTO(userRepository.save(createdUser));
+        User userCreated = userMapper.toEntity(userCreateDTO);
+        User userSaved = userRepository.save(userCreated);
+        return userMapper.toDTO(userSaved);
     }
 
     @Override

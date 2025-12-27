@@ -22,9 +22,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public FeedbackResponseDTO findById(Long id) {
-        Feedback feedback = feedbackRepository.findById(id)
+        return feedbackRepository.findById(id)
+                .map(feedbackMapper::toDTO)
                 .orElseThrow(()-> new FeedbackNotFoundException(String.format(FEEDBACK_BY_ID_NOT_FOUND, id)));
-        return feedbackMapper.toDTO(feedback);
     }
 
     @Override
@@ -32,13 +32,15 @@ public class FeedbackServiceImpl implements FeedbackService {
         Feedback feedback = feedbackRepository.findById(id)
                 .orElseThrow(() -> new FeedbackNotFoundException(String.format(FEEDBACK_BY_ID_NOT_FOUND, id)));
 
-        return feedbackMapper.toDTO(feedbackRepository.save(feedback));
+        Feedback feedbackSaved = feedbackRepository.save(feedback);
+        return feedbackMapper.toDTO(feedbackSaved);
     }
 
     @Override
     public FeedbackResponseDTO createFeedback(FeedbackCreateRequestDTO complaintCreateDTO) {
         Feedback feedback = feedbackMapper.toEntity(complaintCreateDTO);
-        return feedbackMapper.toDTO(feedbackRepository.save(feedback));
+        Feedback feedbackSaved = feedbackRepository.save(feedback);
+        return feedbackMapper.toDTO(feedbackSaved);
     }
 
     @Override

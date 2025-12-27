@@ -22,11 +22,11 @@ public class ContractorServiceImpl implements ContractorService {
 
     @Override
     public ContractorResponseDTO findById(Long id) {
-        return mapper.toDTO(
-                repository
-                        .findById(id)
-                        .orElseThrow(() -> new ContractorNotFoundException(
-                                String.format( CONTRACTOR_BY_ID_NOT_FOUND, id))));
+        return repository
+                .findById(id)
+                .map(mapper::toDTO)
+                .orElseThrow(() -> new ContractorNotFoundException(
+                    String.format( CONTRACTOR_BY_ID_NOT_FOUND, id)));
     }
 
     @Override
@@ -35,17 +35,16 @@ public class ContractorServiceImpl implements ContractorService {
                                     .findById(id)
                                     .orElseThrow(() -> new ContractorNotFoundException(
                                             String.format( CONTRACTOR_BY_ID_NOT_FOUND, id)));
-
-        return mapper.toDTO(repository.save(contractor));
+        Contractor newContractor = repository.save(contractor);
+        return mapper.toDTO(newContractor);
 
     }
 
     @Override
     public ContractorResponseDTO createContractor(ContractorCreateRequestDTO complaintCreateDTO) {
         return mapper.toDTO(
-                repository
-                        .save(mapper.toEntity(complaintCreateDTO)));
-
+                repository.save(
+                        mapper.toEntity(complaintCreateDTO)));
     }
 
     @Override

@@ -23,20 +23,19 @@ public class ContractorEventServiceImpl implements ContractorEventService {
 
     @Override
     public ContractorEventResponseDTO findById(Long id) {
-        return contractorEventMapper
-                .toDTO(contractorEventRepository
-                        .findById(id)
-                        .orElseThrow(()-> new ContractorEventNotFoundException(
-                                String.format(CONTRACTOR_EVENT_BY_ID_NOT_FOUND, id))));
+        return contractorEventRepository
+                .findById(id)
+                .map(contractorEventMapper::toDTO)
+                .orElseThrow(()-> new ContractorEventNotFoundException(String.format(CONTRACTOR_EVENT_BY_ID_NOT_FOUND, id)));
     }
 
     @Override
     public ContractorEventResponseDTO findByContractorId(Long id) {
-        return contractorEventMapper
-                .toDTO(contractorEventRepository
-                        .findById(id)
-                        .orElseThrow(()-> new ContractorEventNotFoundException(
-                                String.format(CONTRACTOR_EVENT_BY_CONTRACTOR_ID_NOT_FOUND, id))));
+        return contractorEventRepository
+                .findContractorEventByContractor(id)
+                .map(contractorEventMapper::toDTO)
+                .orElseThrow(()-> new ContractorEventNotFoundException(
+                        String.format(CONTRACTOR_EVENT_BY_CONTRACTOR_ID_NOT_FOUND, id)));
     }
 
     @Override
@@ -45,7 +44,9 @@ public class ContractorEventServiceImpl implements ContractorEventService {
                 .findById(id)
                 .orElseThrow(()-> new ContractorEventNotFoundException(
                         String.format(CONTRACTOR_EVENT_BY_ID_NOT_FOUND, id)));
-        return contractorEventMapper.toDTO(contractor);
+
+        ContractorEvent newContractor = contractorEventRepository.save(contractor);
+        return contractorEventMapper.toDTO(newContractor);
     }
 
     @Override

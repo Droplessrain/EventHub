@@ -22,20 +22,18 @@ public class ComplaintServiceImpl implements ComplaintService {
 
     @Override
     public ComplaintResponseDTO findById(Long id) {
-        return complaintMapper
-                .toDto(complaintRepository
-                        .findById(id)
-                        .orElseThrow(() -> new ComplaintNotFoundException(String.format(COMPLAINT_BY_ID_NOT_FOUND, id))));
-
+        return complaintRepository
+                .findById(id)
+                .map(complaintMapper::toDto)
+                .orElseThrow(() -> new ComplaintNotFoundException(String.format(COMPLAINT_BY_ID_NOT_FOUND, id)));
     }
 
     @Override
     public ComplaintResponseDTO updateComplaint(Long id, ComplaintUpdateRequestDTO complaintUpdateRequestDTO) {
-        Complaint complaint = complaintRepository.save(
-                complaintRepository
-                        .findById(id)
-                        .orElseThrow(() -> new ComplaintNotFoundException(String.format(COMPLAINT_BY_ID_NOT_FOUND, id))));
-
+        Complaint findedComplaint = complaintRepository
+                .findById(id)
+                .orElseThrow(() -> new ComplaintNotFoundException(String.format(COMPLAINT_BY_ID_NOT_FOUND, id)));
+        Complaint complaint = complaintRepository.save(findedComplaint);
         return complaintMapper.toDto(complaint);
     }
 

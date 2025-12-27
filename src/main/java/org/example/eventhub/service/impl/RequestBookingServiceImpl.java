@@ -22,11 +22,10 @@ public class RequestBookingServiceImpl implements RequestBookingService {
 
     @Override
     public RequestBookingResponseDTO findById(Long id) {
-        RequestBookingResponseDTO request = repository
+        return repository
                 .findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new RequestBookingNotFoundException(String.format(REQUEST_BOOKING_BY_ID_NOT_FOUND, id)));
-        return null;
     }
 
     @Override
@@ -34,8 +33,8 @@ public class RequestBookingServiceImpl implements RequestBookingService {
         RequestBooking request = repository
                 .findById(id)
                 .orElseThrow(() -> new RequestBookingNotFoundException(String.format(REQUEST_BOOKING_BY_ID_NOT_FOUND, id)));
-
-        return mapper.toDto(repository.save(request));
+        RequestBooking requestBooking = repository.save(request);
+        return mapper.toDto(requestBooking);
     }
 
     @Override
