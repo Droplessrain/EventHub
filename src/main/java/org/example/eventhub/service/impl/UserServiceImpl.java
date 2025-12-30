@@ -1,12 +1,12 @@
 package org.example.eventhub.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.eventhub.dto.user.UserCreateDTO;
+import org.example.eventhub.dto.user.UserCreateRequestDTO;
 import org.example.eventhub.dto.user.UserResponseDTO;
-import org.example.eventhub.dto.user.UserUpdateDTO;
-import org.example.eventhub.exception.UserNotFoundException;
-import org.example.eventhub.exception.UserWithThisEmailAlreadyExist;
-import org.example.eventhub.exception.UserWithThisUsernameAlreadyExist;
+import org.example.eventhub.dto.user.UserUpdateRequestDTO;
+import org.example.eventhub.exception.user.UserNotFoundException;
+import org.example.eventhub.exception.user.UserWithThisEmailAlreadyExist;
+import org.example.eventhub.exception.user.UserWithThisUsernameAlreadyExist;
 import org.example.eventhub.filterEntity.SearchUsersFilter;
 import org.example.eventhub.mapper.UserMapper;
 import org.example.eventhub.model.entity.User;
@@ -31,8 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO findById(Long id) {
-        return userMapper.toDTO(userRepository.findById(id)
-                .orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id))));
+        return userRepository.findById(id)
+                .map(userMapper::toDTO)
+                .orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
     }
 
     @Override
@@ -43,21 +44,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO updateUser(Long id, UserUpdateDTO userUpdateDTO) {
-        User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
-        return userMapper.toDTO(userRepository.save(user));
+    public UserResponseDTO updateUser(Long id, UserUpdateRequestDTO userUpdateDTO) {
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(()-> new UserNotFoundException(String.format(USER_BY_ID_NOT_FOUND, id)));
+
+        User userSaved = userRepository.save(user);
+        return userMapper.toDTO(userSaved);
     }
 
     @Override
-    public UserResponseDTO createUser(UserCreateDTO userCreateDTO) {
+    public UserResponseDTO createUser(UserCreateRequestDTO userCreateDTO) {
         if(userRepository.findByUsername(userCreateDTO.username()).isPresent()) {
             throw new UserWithThisUsernameAlreadyExist(USER_WITH_THIS_USERNAME_ALREADY_EXIST);
         }
         if(userRepository.findByEmail(userCreateDTO.email()).isPresent()) {
             throw new UserWithThisEmailAlreadyExist(USER_WITH_THIS_EMAIL_ALREADY_EXIST);
         }
-        User createdUser = userMapper.toEntity(userCreateDTO);
-        return userMapper.toDTO(userRepository.save(createdUser));
+        User userCreated = userMapper.toEntity(userCreateDTO);
+        User userSaved = userRepository.save(userCreated);
+        return userMapper.toDTO(userSaved);
     }
 
     @Override
