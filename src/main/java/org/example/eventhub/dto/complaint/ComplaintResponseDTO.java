@@ -10,7 +10,7 @@ public record ComplaintResponseDTO (
         String title,
         String description,
         Long userId,
-        Contractor contractor,
+        Long contractorId,
         ComplaintStatus complaintStatus,
         String rejectReason
 ){}

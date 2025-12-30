@@ -19,16 +19,16 @@ public interface ContractorMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "userId.id", source = "userId")
+    @Mapping(target = "user.id", source = "userId")
     Contractor toEntity(ContractorResponseDTO responseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "userId.id", source = "userId")
+    @Mapping(target = "user.id", source = "userId")
     Contractor toEntity(ContractorCreateRequestDTO createDTO);
 
-    @Mapping(source = "userId.id", target = "userId")
+    @Mapping(source = "user.id", target = "userId")
     ContractorResponseDTO toDTO(Contractor entity);
 }

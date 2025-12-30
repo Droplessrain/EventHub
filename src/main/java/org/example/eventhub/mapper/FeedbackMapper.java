@@ -18,19 +18,19 @@ public interface FeedbackMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "contractorId.id", source = "contractorId")
-    @Mapping(target = "userId.id", source = "userId")
+    @Mapping(target = "contractor.id", source = "contractorId")
+    @Mapping(target = "user.id", source = "userId")
     Feedback toEntity(FeedbackResponseDTO feedbackResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "contractorId.id", source = "contractorId")
-    @Mapping(target = "userId.id", source = "userId")
+    @Mapping(target = "contractor.id", source = "contractorId")
+    @Mapping(target = "user.id", source = "userId")
     Feedback toEntity(FeedbackCreateRequestDTO feedbackCreateDTO);
 
-    @Mapping(source = "contractorId.id", target = "contractorId")
-    @Mapping(source = "userId.id", target = "userId")
+    @Mapping(source = "contractor.id", target = "contractorId")
+    @Mapping(source = "user.id", target = "userId")
     FeedbackResponseDTO toDTO(Feedback feedback);
 }

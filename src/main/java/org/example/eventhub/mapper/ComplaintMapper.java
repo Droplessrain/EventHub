@@ -20,14 +20,19 @@ public interface ComplaintMapper {
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "contractor.id", source = "contractorId")
+    @Mapping(target = "user.id", source = "userId")
     Complaint toEntity(ComplaintResponseDTO complaintResponseDTO);
 
     @Mapping(target = "created_date", ignore = true)
     @Mapping(target = "updated_date", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "userId.id", source = "userId")
+    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "contractor.id", source = "contractorId")
     Complaint toEntity(ComplaintCreateRequestDTO complaintCreateRequestDTO);
 
+    @Mapping(target = "contractorId", source = "contractor.id")
+    @Mapping(target = "userId", source = "user.id")
     ComplaintResponseDTO toDto(Complaint complaint);
 }
